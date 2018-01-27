@@ -1,19 +1,18 @@
-package com.example.nanda.newagri;
+package com.example.nanda.newagri.LogIn;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONArray;
+import com.example.nanda.newagri.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;

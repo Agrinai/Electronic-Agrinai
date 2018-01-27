@@ -1,4 +1,4 @@
-package com.example.nanda.newagri;
+package com.example.nanda.newagri.LogIn;
 
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
@@ -14,7 +14,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.appdatasearch.GetRecentContextCall;
+import com.example.nanda.newagri.Home.HomeScreen;
+import com.example.nanda.newagri.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

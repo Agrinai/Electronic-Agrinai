@@ -7,7 +7,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
 
-    tools:context="com.example.nanda.newagri.UserProfile">
+    tools:context=".User.UserProfile">
 
 
         <View

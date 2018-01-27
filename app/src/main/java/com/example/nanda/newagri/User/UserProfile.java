@@ -1,4 +1,4 @@
-package com.example.nanda.newagri;
+package com.example.nanda.newagri.User;
 
 
 import android.app.ProgressDialog;
@@ -17,6 +17,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.nanda.newagri.Home.HomeScreen;
+import com.example.nanda.newagri.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 

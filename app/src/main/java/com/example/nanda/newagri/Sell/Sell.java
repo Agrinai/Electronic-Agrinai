@@ -1,4 +1,4 @@
-package com.example.nanda.newagri;
+package com.example.nanda.newagri.Sell;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,6 +16,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.nanda.newagri.Home.HomeScreen;
+import com.example.nanda.newagri.NamesList;
+import com.example.nanda.newagri.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

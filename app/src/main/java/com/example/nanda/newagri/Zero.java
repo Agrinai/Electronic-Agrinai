@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.example.nanda.newagri.Home.HomeScreen;
+import com.example.nanda.newagri.LogIn.Login;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,40 +32,27 @@ public class Zero extends AppCompatActivity {
         progressDialog.setIndeterminate(false);
         progressDialog.setMessage("Please Wait");
         progressDialog.show();
-        long delayInMillis = 2000;
-        Timer timer = new Timer();
+        progressDialog.dismiss();
+        SharedPreferences sp1 = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
+        SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
+        userName = sp.getString("newemailidorphonenumber", "");
+        UserName1 = sp1.getString("name", "");
 
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                progressDialog.dismiss();
-                SharedPreferences sp1 = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
-                SharedPreferences sp = getSharedPreferences("Data", Context.MODE_PRIVATE);
-                userName = sp.getString("newemailidorphonenumber", "");
-                UserName1 = sp1.getString("name", "");
+        if (userName.trim().length() == 0 || UserName1.trim().length() == 0) {
 
-
-                if (userName.trim().length() == 0 || UserName1.trim().length() == 0) {
-
-                    Intent a = new Intent(Zero.this, Login.class);
-                    startActivity(a);
-                }
-                if (UserName1.trim().length() != 0) {
-                    Intent a = new Intent(Zero.this, HomeScreen.class);
-                    startActivity(a);
-                }
-
-                if (userName.trim().length() != 0) {
-                    Intent a = new Intent(Zero.this, HomeScreen.class);
-                    startActivity(a);
-                }
-
-            }
-        }, delayInMillis);
-
-
-
+            Intent a = new Intent(Zero.this, Login.class);
+            startActivity(a);
         }
+        if (UserName1.trim().length() != 0) {
+            Intent a = new Intent(Zero.this, HomeScreen.class);
+            startActivity(a);
+        }
+
+        if (userName.trim().length() != 0) {
+            Intent a = new Intent(Zero.this, HomeScreen.class);
+            startActivity(a);
+        }
+    }
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBackPressed()

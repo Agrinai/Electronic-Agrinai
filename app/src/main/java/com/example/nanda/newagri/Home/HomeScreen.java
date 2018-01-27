@@ -1,40 +1,26 @@
-package com.example.nanda.newagri;
+package com.example.nanda.newagri.Home;
 
-import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
-import java.net.URL;
+import com.example.nanda.newagri.Buy.Buy;
+import com.example.nanda.newagri.MapActivity;
+import com.example.nanda.newagri.R;
+import com.example.nanda.newagri.Sell.Sell;
+import com.example.nanda.newagri.User.UserProfile;
+import com.example.nanda.newagri.Weather;
+import com.example.nanda.newagri.Zero;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -111,7 +97,6 @@ public class HomeScreen extends AppCompatActivity {
             useriddd = spp.getString("userid", "");
             SharedPreferences spp1 = getSharedPreferences("user", Context.MODE_PRIVATE);
             nss = spp1.getString("name", "");
-
             if (userName.toString().trim().length() == 0) {
                 tv.setText("" + nss);
 
@@ -158,10 +143,10 @@ public class HomeScreen extends AppCompatActivity {
                     SharedPreferences.Editor editor = sp.edit();
                     editor.clear();
                     editor.commit();
-                    SharedPreferences sp1 = getSharedPreferences("Data", Context.MODE_PRIVATE);
+                    SharedPreferences sp1 = getSharedPreferences("user", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor1 = sp1.edit();
-                    editor.clear();
-                    editor.commit();
+                    editor1.clear();
+                    editor1.commit();
                     Intent i = new Intent(HomeScreen.this, Zero.class);
                     startActivity(i);
                 }

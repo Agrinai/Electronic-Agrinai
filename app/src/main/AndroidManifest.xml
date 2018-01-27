@@ -35,40 +35,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Login"
+            android:name=".LogIn.Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Signup"
+            android:name=".LogIn.Signup"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Spassword"
+            android:name=".LogIn.Spassword"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Sell"
+            android:name=".Sell.Sell"
             android:label="                             SELL" />
         <activity
-            android:name=".MatchForSell"
+            android:name=".Sell.MatchForSell"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Buy"
+            android:name=".Buy.Buy"
             android:label="                             BUY" />
         <activity
-            android:name=".MatchForBuy"
+            android:name=".Buy.MatchForBuy"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Weather"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".dialogSell"
+            android:name=".Sell.dialogSell"
             android:theme="@style/HiddenTitleTheme" />
         <activity
-            android:name=".dialogBuy"
+            android:name=".Buy.dialogBuy"
             android:theme="@style/HiddenTitleTheme" />
         <activity
-            android:name=".UserProfile"
+            android:name=".User.UserProfile"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".HomeScreen"
+            android:name=".Home.HomeScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MapActivity"
