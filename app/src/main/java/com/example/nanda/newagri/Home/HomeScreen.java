@@ -12,7 +12,6 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.nanda.newagri.Buy.Buy;
 import com.example.nanda.newagri.MapActivity;
@@ -34,8 +33,8 @@ public class HomeScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-          super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_screen);
         tv = (TextView) findViewById(R.id.tv);
         cim = (CircleImageView) findViewById(R.id.cirimg);
         bbuy = (Button) findViewById(R.id.bbuy);

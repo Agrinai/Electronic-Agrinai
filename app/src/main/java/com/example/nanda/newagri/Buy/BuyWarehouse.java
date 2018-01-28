@@ -55,7 +55,7 @@ class BuyWarehouse extends ArrayAdapter<String>
     private Activity context;
 
     public BuyWarehouse(Activity context, String[] PN, String[] KG, String[] _id) {
-        super(context, R.layout.buysellwarehouse, PN);
+        super(context, R.layout.buywarehouse, PN);
         this.context = context;
         this.PN = PN;
         this.KG = KG;
@@ -65,7 +65,7 @@ class BuyWarehouse extends ArrayAdapter<String>
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View listViewItem = inflater.inflate(R.layout.buysellwarehouse, null, true);
+        View listViewItem = inflater.inflate(R.layout.buywarehouse, null, true);
         TextView tv1 = (TextView) listViewItem.findViewById(R.id.vname);
         TextView tv2 = (TextView) listViewItem.findViewById(R.id.vkg);
         ImageView go=(ImageView) listViewItem.findViewById(R.id.go);
