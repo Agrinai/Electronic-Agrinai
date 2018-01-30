@@ -8,13 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import com.example.nanda.newagri.Home.HomeScreen;
 import com.example.nanda.newagri.LogIn.Login;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Lokesh on 15-08-2017.

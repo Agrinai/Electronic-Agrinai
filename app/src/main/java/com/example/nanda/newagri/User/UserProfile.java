@@ -242,6 +242,7 @@ public class UserProfile extends AppCompatActivity {
                             SharedPreferences sp = getSharedPreferences("userpropic", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("pic", Userpropic);
+                            editor.putString("picname",UserName);
                             editor.apply();
                         } catch (JSONException e) {
                             e.printStackTrace();
