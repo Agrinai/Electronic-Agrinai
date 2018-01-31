@@ -38,7 +38,6 @@ public class HomeScreen extends AppCompatActivity
 
     String useridd,useriddd,SendUserID,userName,nss;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,8 +64,8 @@ public class HomeScreen extends AppCompatActivity
             SendUserID = useridd;
         }
 
-        //new getProfile(""+SendUserID).execute();
-       /* SharedPreferences sp3 = getSharedPreferences("checkcheck", Context.MODE_PRIVATE);
+        /*//new getProfile(""+SendUserID).execute();
+        SharedPreferences sp3 = getSharedPreferences("checkcheck", Context.MODE_PRIVATE);
         String check1=sp3.getString("check","");
         if(check1.equals("true")){
             new getProfile(""+SendUserID).execute();
@@ -143,7 +142,6 @@ public class HomeScreen extends AppCompatActivity
                 Toast.makeText(getBaseContext(),"My Payment Module is OnProcess",Toast.LENGTH_LONG).show();
             }
         });
-
 
 
 

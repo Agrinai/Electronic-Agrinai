@@ -21,7 +21,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/buy"
-        android:label="@string/app_name"
+        android:label="  "
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -92,8 +92,7 @@
 
         <activity
             android:name=".Home.HomeScreen"
-            android:label="@string/title_activity_home_screen"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
