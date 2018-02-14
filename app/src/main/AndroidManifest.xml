@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nanda.newagri">
 
-    <uses-sdk android:minSdkVersion="16" />
-
     <permission
         android:name="com.example.nanda.newagri.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -21,10 +19,12 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/buy"
-        android:label="  "
+        android:label="Agrinai"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--
         <activity
             android:name=".Zero"
             android:theme="@style/AppTheme.NoActionBar">
@@ -34,6 +34,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        -->
+        <activity
+            android:name=".Zero"
+            android:label="@string/title_activity_tabforbuysell"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".BuyorSell.BuyorSell"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".LogIn.Login"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -44,14 +58,8 @@
             android:name=".LogIn.Spassword"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".Sell.Sell"
-            android:label="                             SELL" />
-        <activity
             android:name=".Sell.MatchForSell"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Buy.Buy"
-            android:label="                             BUY" />
         <activity
             android:name=".Buy.MatchForBuy"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -65,8 +73,11 @@
             android:name=".Buy.dialogBuy"
             android:theme="@style/HiddenTitleTheme" />
         <activity
-            android:name=".User.UserProfile"
+            android:name=".User.UserEditScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Home.HomeScreen"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MapActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
@@ -91,8 +102,9 @@
             android:value="AIzaSyBAVA2F_EUpNCEOe10dli2yvX6fADO95o0" />
 
         <activity
-            android:name=".Home.HomeScreen"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".User.UserScreen"
+            android:label="@string/title_activity_user_edit"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

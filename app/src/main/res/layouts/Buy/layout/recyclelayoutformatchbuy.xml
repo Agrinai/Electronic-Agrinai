@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff"
+    android:paddingRight="1dp"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                android:orientation="horizontal"
+                >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical"
+                    android:background="#fff"
+                    android:layout_marginBottom="5dp"
+                    >
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="70dp"
+                        android:layout_height="60dp"
+                        android:padding="4dp"
+                        android:src="@drawable/userprofile"
+                        android:layout_gravity="center"/>
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="60dp"
+                        android:padding="4dp"
+                        android:src="@drawable/ic_settings_phone_24dp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="295dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="#fff"
+                    >
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:background="#fff"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Seller Details :"
+                                android:textColor="#000000"
+                                />
+                            <TextView
+                                android:id="@+id/textViewName"
+                                android:textSize="@dimen/rvbproductname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                                android:text="Apple MacBook Air Core i5 5th Gen - (8 GB/128 GB SSD/Mac OS Sierra)"
+                                android:textColor="#000000"
+                                android:layout_marginLeft="25dp"/>
+                            <TextView
+                                android:id="@+id/textViewMobileNumber"
+                                android:textSize="@dimen/rvbproductname"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
+                                android:text="99999999"
+                                android:textColor="#000000"
+                                android:layout_marginLeft="25dp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="25dp"
+                                android:textColor="@color/appgreen"
+                                android:text="User Rating :  ****  "
+                                android:textAppearance="@style/Base.TextAppearance.AppCompat.Small.Inverse"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="5dp"/>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp"
+                        >
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingLeft="10dp"
+                            android:background="#fff"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Product Details :"
+                                android:textColor="#000000"
+                                />
+                            <TextView
+                                android:id="@+id/textViewProductName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#000000"
+                                android:layout_marginLeft="25dp"
+                                android:textSize="@dimen/rvbproductname"
+                                android:text="13.3 Inch, 256 GB"
+                                />
+
+                            <TextView
+                                android:id="@+id/textViewKilo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="25dp"
+                                android:text="4.7 "
+                                android:textSize="@dimen/rvbproductname"
+                                android:textColor="#000000"
+                                />
+
+                            <TextView
+                                android:id="@+id/textViewPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="25dp"
+                                android:background="@color/appgreen"
+                                android:textColor="@color/white"
+                                android:text="INR 56990"
+                                android:textSize="@dimen/rvbprice"
+                                android:textStyle="bold"
+                                android:layout_marginBottom="5dp"/>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Buy Now"
+                android:gravity="center"
+                android:background="@drawable/button"
+                android:textColor="#ffffff"
+                android:id="@+id/button"
+                android:layout_marginBottom="10dp"
+                android:textSize="15dp"
+                />
+
+        </LinearLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:text=""
+        android:textSize="30dp"/>
+
+</LinearLayout>
+

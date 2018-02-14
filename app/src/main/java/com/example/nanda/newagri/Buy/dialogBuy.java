@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.nanda.newagri.Buy.BuyWarehouse;
+import com.example.nanda.newagri.BuyorSell.BuyorSell;
 import com.example.nanda.newagri.R;
 
 import org.json.JSONArray;
@@ -86,7 +87,7 @@ public class dialogBuy extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent i=new Intent(dialogBuy.this,Buy.class);
+        Intent i=new Intent(dialogBuy.this,BuyorSell.class);
         startActivity(i);
     }
     void getWarehouseData(String postBody) throws IOException {

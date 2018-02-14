@@ -6,7 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -21,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -30,131 +37,131 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
-public class MatchForBuy extends Activity {
+public class MatchForBuy extends AppCompatActivity {
     ProgressDialog progressDialog;
-    ListView listView;
     String match;
-    String[] PN,KG,Name,PHNO,Pr,propic;
-    String product_name, kilo,Price;
-    TextView show;
+    String product_name, kilo,price;
+    TextView notmatch;
     String  username,phno,ppic;
     int code=0;
-    String status;
+    RecyclerView recyclerView;
+    List<BuyProduct> productList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_match);
-        show=(TextView)findViewById(R.id.show);
-        show.setVisibility(View.INVISIBLE);
+        setContentView(R.layout.activity_matchbuy);
+        notmatch=(TextView)findViewById(R.id.notmatch);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        listView = (ListView) findViewById(R.id.listView2);
+        //Product List
+        productList = new ArrayList<>();
 
         SharedPreferences sp = getSharedPreferences("BuyData", Context.MODE_PRIVATE);
         match = sp.getString("match", "");
-
-
-        JSONObject json=new JSONObject();
-        try {
-            json.put("VegName", match);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            getMatches(json.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        new getSellerMatchesInBuy().execute();
     }
 
+    public class getSellerMatchesInBuy extends AsyncTask<String,String,String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(MatchForBuy.this);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setIndeterminate(false);
+            progressDialog.setMessage("Please Wait");
+            progressDialog.show();
+        }
 
-    void getMatches(String postBody) throws IOException {
-        String postUrl = "https://agrinai.herokuapp.com/agri/v1/Buy/findVeg";
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        @Override
+        protected String doInBackground(String... params) {
+            String postUrl = "https://agrinai.herokuapp.com/agri/v1/Buy/findVeg";
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-        OkHttpClient client = new OkHttpClient();
+            OkHttpClient client = new OkHttpClient();
 
-        RequestBody body = RequestBody.create(JSON, postBody);
-
-        final Request request = new Request.Builder()
-                .url(postUrl)
-                .post(body)
-                .build();
-        progressDialog = new ProgressDialog(MatchForBuy.this);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setIndeterminate(false);
-        progressDialog.setMessage("Please Wait");
-        progressDialog.show();
-
-        client.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(okhttp3.Call call, IOException e) {
-                call.cancel();
+            JSONObject json=new JSONObject();
+            try {
+                json.put("VegName", match);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-            @Override
-            public void onResponse(okhttp3.Call call, final Response response) throws IOException {
-                final String myRes = response.body().string();
-                // Log.d("Page :96",response.body().string());
-                MatchForBuy.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
+            RequestBody body = RequestBody.create(JSON, json.toString());
+
+            final Request request = new Request.Builder()
+                    .url(postUrl)
+                    .post(body)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                return response.body().string();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            final String myRes = s;
+            Log.d("Response", s);
+            MatchForBuy.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        JSONObject json = new JSONObject(myRes);
+                        code = json.getInt("code");
+                        if (code == 200) {
+                            JSONArray parentArray = json.getJSONArray("data");
                             progressDialog.dismiss();
-                            JSONObject json = new JSONObject(myRes);
-                            code=json.getInt("code");
-                            if(code==200){
-                                JSONArray parentArray = json.getJSONArray("data");
-                                PN = new String[parentArray.length()];
-                                KG = new String[parentArray.length()];
-                                Name = new String[parentArray.length()];
-                                Pr = new String[parentArray.length()];
-                                PHNO = new String[parentArray.length()];
-                                propic = new String[parentArray.length()];
+                            for (int i = 0; i < parentArray.length(); i++) {
+                                JSONObject finalObject = parentArray.getJSONObject(i);
+                                product_name = finalObject.getString("VegName");
+                                Log.d("productname", product_name);
+                                kilo = finalObject.getString("VegKG");
+                                price = finalObject.getString("VegPrice");
+                                JSONObject useridd = finalObject.getJSONObject("UserId");
+                                username = useridd.getString("name");
+                                Log.d("username", username);
+                                phno = useridd.getString("emailorphone");
+                                ppic = useridd.getString("profilepic");
+                                Toast.makeText(getApplicationContext(), "" + username + "" + product_name, Toast.LENGTH_SHORT).show();
+                                productList.add(
+                                    new BuyProduct(
+                                        1,
+                                        username,
+                                        phno,
+                                        product_name,
+                                        kilo,
+                                        price,
+                                        ppic
+                                    )
+                                );
 
-                                for (int i = 0; i < parentArray.length(); i++)
-                                {
-                                    JSONObject finalObject = parentArray.getJSONObject(i);
-                                    product_name = finalObject.getString("VegName");
-                                    PN[i] = product_name;
-                                    kilo = finalObject.getString("VegKG");
-                                    KG[i] = kilo;
-                                    Price = finalObject.getString("VegPrice");
-                                    Pr[i] = Price;
-
-                                    JSONObject useridd = finalObject.getJSONObject("UserId");
-                                    username = useridd.getString("name");
-                                    Name[i] = username;
-                                    phno=useridd.getString("emailorphone");
-                                    PHNO[i]=phno;
-                                    ppic=useridd.getString("profilepic");
-                                    propic[i]=ppic;
-                                }
-                                CustomListForBuy customList = new CustomListForBuy(MatchForBuy.this, PN, KG, Name, Pr,PHNO,propic);
-                                listView.setAdapter(customList);
-
-
-                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", PHNO[i], null)));
-                                    }
-                                });
-                            }
-                            else{
-                                    Toast.makeText(getBaseContext(),"Sorry , No Matches",Toast.LENGTH_LONG).show();
-                                    show.setVisibility(View.VISIBLE);
                             }
 
+                            //creating recyclerview adapter
+                            BuyProductAdapter adapter = new BuyProductAdapter(getApplicationContext(), productList);
 
+                            //setting adapter to recyclerview
+                            recyclerView.setAdapter(adapter);
+                        } else {
+                            progressDialog.dismiss();
+                            notmatch.setText("Sorry No Matches Found");
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     }
 }
 

@@ -1,14 +1,15 @@
 package com.example.nanda.newagri.Home;
 
-import android.app.ProgressDialog;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.CardView;
-import android.util.Base64;
+
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,21 +22,31 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nanda.newagri.Buy.Buy;
+import com.example.nanda.newagri.BuyorSell.BuyorSell;
 import com.example.nanda.newagri.R;
-import com.example.nanda.newagri.Sell.Sell;
-import com.example.nanda.newagri.User.UserProfile;
+import com.example.nanda.newagri.User.UserScreen;
 import com.example.nanda.newagri.Zero;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView tv;
     CircleImageView cim;
-    ProgressDialog progressDialog;
-    CardView BuyCard,SellCard, TransactionCard,PaymentCard;
-
+    CardView SellCard,MarketCard, TransactionCard,PaymentCard;
+    String UserName,UserPhone,Useremail,UserAddress,Userpropic;
     String useridd,useriddd,SendUserID,userName,nss;
 
     @Override
@@ -44,18 +55,22 @@ public class HomeScreen extends AppCompatActivity
         setContentView(R.layout.activity_home_screen);
         tv = (TextView) findViewById(R.id.tv);
         cim = (CircleImageView) findViewById(R.id.cirimg);
-        BuyCard=(CardView)findViewById(R.id.Buy_card);
         SellCard=(CardView)findViewById(R.id.Sell_card);
+        MarketCard=(CardView)findViewById(R.id.Market_card);
         TransactionCard=(CardView)findViewById(R.id.Transaction_card);
         PaymentCard=(CardView)findViewById(R.id.MyPayment_card);
 
-
-
-
+        //Get UserData From SharedPref//////////
+        SharedPreferences userpic = getSharedPreferences("userpropic", Context.MODE_PRIVATE);
+            String picstring = userpic.getString("pic", "");
+            String username=userpic.getString("username", "");
+            Picasso.with(this).load(picstring).into(cim);
         SharedPreferences sp = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
-        useriddd = sp.getString("userid", "");
+            useriddd = sp.getString("userid", "");
+            userName = sp.getString("name", "");
         SharedPreferences sp1 = getSharedPreferences("user", Context.MODE_PRIVATE);
-        useridd = sp1.getString("userid", "");
+            useridd = sp1.getString("userid", "");
+            nss = sp1.getString("name", "");
 
         if (useriddd.length() != 0) {
             SendUserID = useriddd;
@@ -64,31 +79,8 @@ public class HomeScreen extends AppCompatActivity
             SendUserID = useridd;
         }
 
-        /*//new getProfile(""+SendUserID).execute();
-        SharedPreferences sp3 = getSharedPreferences("checkcheck", Context.MODE_PRIVATE);
-        String check1=sp3.getString("check","");
-        if(check1.equals("true")){
-            new getProfile(""+SendUserID).execute();
-
-        }*/
-        SharedPreferences userpic = getSharedPreferences("userpropic", Context.MODE_PRIVATE);
-        String picstring = userpic.getString("pic", "");
-        String picname=userpic.getString("picname","");
-        if (picstring.length() != 0) {
-            byte[] img = picstring.getBytes();
-            byte[] decodedBytes = Base64.decode(img, 0);
-            Bitmap picbitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-            cim.setImageBitmap(picbitmap);
-        }
-
-        SharedPreferences spp = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
-        userName = spp.getString("name", "");
-        useriddd = spp.getString("userid", "");
-        SharedPreferences spp1 = getSharedPreferences("user", Context.MODE_PRIVATE);
-        nss = spp1.getString("name", "");
-
-        if(picname.toString().trim().length() !=0) {
-            tv.setText(""+picname);
+        if(username.toString().trim().length() !=0) {
+            tv.setText(""+username);
         }
         else{
             if (userName.toString().trim().length() == 0) {
@@ -99,35 +91,48 @@ public class HomeScreen extends AppCompatActivity
                 tv.setText("" + userName);
             }
         }
+        //Get UserData From SharedPref//////////
 
+        //Get User Details Server Call//////////
+        JSONObject json=new JSONObject();
+        try {
+            json.put("_id", SendUserID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            getProfilePost(json.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Get User Details Server Call///////////////////
 
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeScreen.this, UserProfile.class);
+                Intent i = new Intent(HomeScreen.this, UserScreen.class);
                 startActivity(i);
             }
         });
         cim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(HomeScreen.this, UserProfile.class);
+                Intent i = new Intent(HomeScreen.this, UserScreen.class);
                 startActivity(i);
             }
         });
 
-        BuyCard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent a = new Intent(HomeScreen.this, Buy.class);
-                startActivity(a);
-            }
-        });
         SellCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent a = new Intent(HomeScreen.this, Sell.class);
+                Intent a = new Intent(HomeScreen.this, BuyorSell.class);
                 startActivity(a);
+            }
+        });
+        MarketCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(),"ModuleModule is OnProcess",Toast.LENGTH_LONG).show();
             }
         });
         TransactionCard.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +164,80 @@ public class HomeScreen extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            boolean isShow = true;
+            int scrollRange = -1;
+
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbarLayout.setTitle("agrinai");
+                    isShow = true;
+                } else if (isShow) {
+                    collapsingToolbarLayout.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
+                    isShow = false;
+                }
+            }
+        });
+    }
+    void getProfilePost(String postBody) throws IOException {
+        String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/getProfile";
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
+        OkHttpClient client = new OkHttpClient();
+
+        RequestBody body = RequestBody.create(JSON, postBody);
+
+        final Request request = new Request.Builder()
+                .url(postUrl)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, IOException e) {
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, final Response response) throws IOException {
+                final String myRes=response.body().string();
+                // Log.d("Page :96",response.body().string());
+                HomeScreen.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONObject json= null;
+                        try {
+                            json = new JSONObject(myRes);
+                            JSONObject obj = json.getJSONObject("data");
+                            UserName = obj.getString("name");
+                            UserPhone=obj.getString("emailorphone");
+                            Useremail=obj.getString("emailid");
+                            UserAddress=obj.getString("address");
+                            Userpropic=obj.getString("profilepic");
+
+                            SharedPreferences sp = getSharedPreferences("userpropic", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sp.edit();
+                            editor.putString("pic", Userpropic);
+                            editor.putString("userphone",UserPhone);
+                            editor.putString("useremail",Useremail);
+                            editor.putString("useraddress",UserAddress);
+                            editor.putString("username",UserName);
+                            Toast.makeText(getBaseContext(),""+userName,Toast.LENGTH_LONG).show();
+                            editor.apply();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
     }
 
 

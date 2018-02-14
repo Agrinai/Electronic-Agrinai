@@ -15,9 +15,20 @@
     <string name="str_btn_find">Find</string>
     <string name="hnt_et_location">Enter location</string>
 	<string name="title_activity_home_scroll">HomeScroll</string>
+    <string name="title_activity_buy_or_sell">BuyOrSell</string>
+    <string name="title_activity_tabforbuysell">Agrinai</string>
+    <string name="section_format">Hello World from section: %1$d</string>
     <string-array name="logout">
         <item></item>
         <item>Log out</item>
         <item>Exit</item>
     </string-array>
+
+    <!--String For BUYSELLMATCH-->
+    <string name="sellerdetails"><u>Seller Details</u>></string>
+    <string name="productdetails"><u>Product Details</u>></string>
+    <!--String For BUYSELLMATCH-->
+
+    <string name="title_activity_user_edit">UserEdit</string>
+
 </resources>

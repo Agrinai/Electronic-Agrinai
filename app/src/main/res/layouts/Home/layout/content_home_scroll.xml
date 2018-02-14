@@ -4,50 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="120dp"
-        android:background="#1d1d1d"
-        android:id="@+id/top"
-        />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/topcustomview"
+            android:background="#1d1d1d"
+            android:id="@+id/top"
+            />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/cirimg"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/userprofile"
-        android:layout_marginTop="20dp"
-        android:layout_centerHorizontal="true" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/tv"
-        android:text="NameText"
-        android:fontFamily="sans-serif-light"
-        android:textSize="20dp"
-        android:layout_below="@+id/cirimg"
-        android:layout_marginTop="10dp"
-        android:textColor="#ffffff"
-        android:layout_marginLeft="55dp"
-        android:layout_centerHorizontal="true" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/cirimg"
+            android:layout_width="@dimen/homecirimg"
+            android:layout_height="@dimen/homecirimg"
+            android:src="@drawable/userprofile"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/tv"
+            android:text="NameText"
+            android:fontFamily="sans-serif-light"
+            android:textSize="20dp"
+            android:layout_below="@+id/cirimg"
+            android:layout_marginTop="2dp"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="55dp"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:clipToPadding="false"
+    android:orientation="horizontal">
+
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/Buy_card"
-        android:layout_width="150dp"
-        android:layout_height="180dp"
-        card_view:cardCornerRadius="1dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="25dp"
-        android:layout_below="@+id/top"
+        android:id="@+id/Sell_card"
+        android:layout_width="@dimen/homecard_width"
+        android:layout_height="@dimen/homecard_height"
+        android:layout_marginLeft="3dp"
         android:layout_marginTop="10dp"
 
         >
@@ -60,13 +69,13 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:background="@drawable/circlebuttonyello"
-                android:src="@drawable/ic_shopping_basket_24dp"
+                android:src="@drawable/ic_shopping_cart_24dp"
                 android:padding="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Buy"
+                android:text="Buy / Sell"
                 android:layout_marginTop="10dp"/>
             <View
                 android:layout_width="match_parent"
@@ -78,19 +87,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text=" To Buy new Products"/>
+                android:padding="5dp"
+                android:text="Sell your product or To purchase new products"/>
         </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/Sell_card"
-        android:layout_width="150dp"
-        android:layout_height="180dp"
-        card_view:cardCornerRadius="1dp"
-        android:layout_below="@+id/top"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"
+        android:id="@+id/Market_card"
+        android:layout_width="@dimen/homecard_width"
+        android:layout_height="@dimen/homecard_height"
+        android:layout_marginLeft="3dp"
         android:layout_marginTop="10dp"
 
         >
@@ -103,13 +111,13 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:background="@drawable/circlebuttonpurple"
-                android:src="@drawable/ic_shopping_cart_24dp"
+                android:src="@drawable/ic_insert_chart_24dp"
                 android:padding="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:text="Sell"
+                android:text="Market Price"
                 android:layout_marginTop="10dp"/>
             <View
                 android:layout_width="match_parent"
@@ -121,103 +129,107 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="To Sell your products "/>
+                android:padding="5dp"
+                android:text=" Know about Market Price of products"/>
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
 
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/Transaction_card"
-        android:layout_width="150dp"
-        android:layout_height="180dp"
-        android:background="@drawable/circlebutton"
-        card_view:cardCornerRadius="1dp"
-        android:layout_below="@+id/Sell_card"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="20dp"
-
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/circlebuttongreen"
-                android:src="@drawable/ic_assignment_24dp"
-                android:padding="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="Transaction History"
-                android:layout_marginTop="10dp"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="10dp"
-                android:background="@color/gray"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="To View your Successful Transaction"/>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/MyPayment_card"
-        android:layout_width="150dp"
-        android:layout_height="180dp"
-        card_view:cardCornerRadius="1dp"
-        android:layout_below="@+id/Buy_card"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="20dp"
-
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:background="@drawable/circlebuttonpink"
-                android:src="@drawable/ic_attach_money_24dp"
-                android:padding="10dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="My Payment"
-                android:layout_marginTop="10dp"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_margin="10dp"
-                android:background="@color/gray"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="To check Your Aginai Money Balance "/>
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-    <TextView
+</LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp" />
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:clipToPadding="false"
+        >
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/Transaction_card"
+            android:layout_width="@dimen/homecard_width"
+            android:layout_height="@dimen/homecard_height"
+            android:background="@drawable/circlebutton"
+            android:layout_marginTop="10dp"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/circlebuttongreen"
+                    android:src="@drawable/ic_assignment_24dp"
+                    android:padding="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Transaction History"
+                    android:layout_marginTop="10dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/gray"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Know about your transaction"/>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/MyPayment_card"
+            android:layout_width="@dimen/homecard_width"
+            android:layout_height="@dimen/homecard_height"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="10dp"
+
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/circlebuttonpink"
+                    android:src="@drawable/ic_attach_money_24dp"
+                    android:padding="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="My Payment"
+                    android:layout_marginTop="10dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/gray"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="To check Your Agrinai money balance "/>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

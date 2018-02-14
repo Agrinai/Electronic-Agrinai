@@ -10,6 +10,10 @@
     <color name="pink">#ff4081</color>
     <color name="gray">#d3d3d3</color>
 
+    <!--Color for buysell-->
+    <color name="appgreen">#4CAF50</color>
+    <!--Color for buysell-->
+
 
 
 </resources>
