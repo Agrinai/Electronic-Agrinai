@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nanda.newagri.BuyorSell.BuyorSell;
+import com.example.nanda.newagri.MapActivity;
 import com.example.nanda.newagri.R;
 import com.example.nanda.newagri.User.UserScreen;
 import com.example.nanda.newagri.Zero;
@@ -32,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Callback;
@@ -45,7 +47,7 @@ public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView tv;
     CircleImageView cim;
-    CardView SellCard,MarketCard, TransactionCard,PaymentCard;
+    CardView SellCard,MarketCard, TransactionCard,PaymentCard,MapCard;
     String UserName,UserPhone,Useremail,UserAddress,Userpropic;
     String useridd,useriddd,SendUserID,userName,nss;
 
@@ -59,6 +61,7 @@ public class HomeScreen extends AppCompatActivity
         MarketCard=(CardView)findViewById(R.id.Market_card);
         TransactionCard=(CardView)findViewById(R.id.Transaction_card);
         PaymentCard=(CardView)findViewById(R.id.MyPayment_card);
+        MapCard=(CardView)findViewById(R.id.Map_card);
 
         //Get UserData From SharedPref//////////
         SharedPreferences userpic = getSharedPreferences("userpropic", Context.MODE_PRIVATE);
@@ -145,6 +148,13 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Toast.makeText(getBaseContext(),"My Payment Module is OnProcess",Toast.LENGTH_LONG).show();
+            }
+        });
+        MapCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(HomeScreen.this, MapActivity.class);
+                startActivity(i);
             }
         });
 
@@ -282,6 +292,10 @@ public class HomeScreen extends AppCompatActivity
             SharedPreferences.Editor editor1 = ssp1.edit();
             editor1.clear();
             editor1.commit();
+            SharedPreferences ssp2 = getSharedPreferences("userpropic", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor2 = ssp2.edit();
+            editor2.clear();
+            editor2.commit();
             Intent i = new Intent(HomeScreen.this, Zero.class);
             startActivity(i);
 

@@ -222,7 +222,7 @@ public class UserEditScreen extends AppCompatActivity {
             public void onFailure(okhttp3.Call call, IOException e) {
                 UserEditScreen.this.runOnUiThread(new Runnable() {
                     public void run() {
-                        Toast.makeText(UserEditScreen.this, "Hello", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserEditScreen.this, "Failure", Toast.LENGTH_SHORT).show();
                     }
                 });
                 call.cancel();
