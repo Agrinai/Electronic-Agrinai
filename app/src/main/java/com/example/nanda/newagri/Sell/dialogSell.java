@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -38,6 +39,7 @@ public class dialogSell extends AppCompatActivity {
     String useridd,useriddd,SendUserID;
     String product_name,kilo,id;
     String buyorsell="Sell";
+    JSONObject json=new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +61,11 @@ public class dialogSell extends AppCompatActivity {
             SendUserID=useridd;}
 
         //////Automatic ServerCall For User Already post Data///////////////////
-        JSONObject json=new JSONObject();
+
         try {
             json.put("UserId", SendUserID);
+            new getWareHouse().execute();
         } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            getWarehouseData(json.toString());
-        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -93,6 +91,71 @@ public class dialogSell extends AppCompatActivity {
         Intent i=new Intent(dialogSell.this,BuyorSell.class);
         startActivity(i);
     }
+
+    public class getWareHouse extends AsyncTask<String,String,String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(dialogSell.this);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setIndeterminate(false);
+            progressDialog.setMessage("Please Wait");
+            progressDialog.show();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String postUrl = "https://agrinai.herokuapp.com/agri/v1/Sell/findUserPostData";
+            MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+            OkHttpClient client = new OkHttpClient();
+            RequestBody body = RequestBody.create(JSON, json.toString());
+            final Request request = new Request.Builder()
+                    .url(postUrl)
+                    .post(body)
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                return response.body().string();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            final String myRes = s;
+
+            dialogSell.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.dismiss();
+                    try {
+                        JSONObject json = new JSONObject(myRes);
+                        JSONArray parentArray = json.getJSONArray("data");
+
+                        PN = new String[parentArray.length()];
+                        KG = new String[parentArray.length()];
+                        _id = new String[parentArray.length()];
+                        for (int i = 0; i < parentArray.length(); i++) {
+                            JSONObject finalObject = parentArray.getJSONObject(i);
+                            product_name = finalObject.getString("VegName");
+                            PN[i] = product_name;
+                            kilo = finalObject.getString("VegKG");
+                            KG[i] = kilo;
+                            id = finalObject.getString("_id");
+                            _id[i] = id;
+                        }
+                        SellWarehouse WarehouseList = new SellWarehouse(dialogSell.this,PN,KG,_id);
+                        veglist.setAdapter(WarehouseList);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+        }
+    }/*
     void getWarehouseData(String postBody) throws IOException {
         String postUrl = "https://agrinai.herokuapp.com/agri/v1/Sell/findUserPostData";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
@@ -152,5 +215,5 @@ public class dialogSell extends AppCompatActivity {
                 });
             }
         });
-    }
+    }*/
 }

@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nanda.newagri.BuyorSell.BuyorSell;
 import com.example.nanda.newagri.R;
 
 import org.json.JSONArray;
@@ -165,6 +166,12 @@ public class MatchForSell extends AppCompatActivity {
             });
 
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(MatchForSell.this, BuyorSell.class);
+        startActivity(i);
     }
 }
 

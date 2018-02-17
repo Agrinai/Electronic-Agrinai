@@ -67,7 +67,14 @@ public class HomeScreen extends AppCompatActivity
         SharedPreferences userpic = getSharedPreferences("userpropic", Context.MODE_PRIVATE);
             String picstring = userpic.getString("pic", "");
             String username=userpic.getString("username", "");
-            Picasso.with(this).load(picstring).into(cim);
+            if(picstring.length() !=0){
+                Picasso.with(this).load(picstring).into(cim);
+            }
+            if(username.length() !=0){
+                tv.setText(""+username);
+            }
+
+
         SharedPreferences sp = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
             useriddd = sp.getString("userid", "");
             userName = sp.getString("name", "");
@@ -159,12 +166,8 @@ public class HomeScreen extends AppCompatActivity
         });
 
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -241,6 +244,20 @@ public class HomeScreen extends AppCompatActivity
                             editor.putString("username",UserName);
                             Toast.makeText(getBaseContext(),""+userName,Toast.LENGTH_LONG).show();
                             editor.apply();
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    if(Userpropic.length() !=0){
+                                        Picasso.with(HomeScreen.this).load(Userpropic).into(cim);
+                                    }
+                                    if(UserName.length() !=0){
+                                        tv.setText(""+UserName);
+                                    }
+                                }
+                            });
+
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

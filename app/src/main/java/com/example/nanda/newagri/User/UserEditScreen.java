@@ -48,6 +48,7 @@ public class UserEditScreen extends AppCompatActivity {
     String UserName, UserPhone, Useremail, UserAddress, Userpropic, StringUri,Result;
     Button bupdate;
     JSONObject imgResJson;
+    JSONObject jsonForUpdate = new JSONObject();
     String useridd, useriddd, SendUserID;
 
 
@@ -99,10 +100,40 @@ public class UserEditScreen extends AppCompatActivity {
                 name = edname.getText().toString();
                 address = edaddress.getText().toString();
                 emailid = edmailid.getText().toString();
-                if(StringUri.length()==0){
+
+                if(StringUri  == null){
+                    try {
+                        jsonForUpdate.put("_id", SendUserID);
+                        jsonForUpdate.put("name", name);
+                        jsonForUpdate.put("emailid", emailid);
+                        jsonForUpdate.put("address", address);
+                        jsonForUpdate.put("profilepic", "0");
+
+                        try {
+                            updatePost();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    new tasktoUpload().execute();
+                    try {
+
+                        jsonForUpdate.put("_id", SendUserID);
+                        jsonForUpdate.put("name", name);
+                        jsonForUpdate.put("emailid", emailid);
+                        jsonForUpdate.put("address", address);
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                 }
-                new tasktoUpload().execute();
+
 
             }
         });
@@ -129,11 +160,7 @@ public class UserEditScreen extends AppCompatActivity {
             Cloudinary cloudinary = new Cloudinary(config);
             try {
                 Result=cloudinary.uploader().upload(file, ObjectUtils.emptyMap()).toString();
-                try {
-                    imgResJson=new JSONObject(Result);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                jsonForUpdate.put("profilepic", Result);
             } catch (IOException e) {
                 e.printStackTrace();
                 UserEditScreen.this.runOnUiThread(new Runnable() {
@@ -145,6 +172,8 @@ public class UserEditScreen extends AppCompatActivity {
 
                 Log.d("Err", String.valueOf(e));
 
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
             return null;
         }
@@ -199,18 +228,8 @@ public class UserEditScreen extends AppCompatActivity {
        String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/updateUser";
         //String postUrl = "http://192.168.43.140:9000/agri/v1/User/updateUser";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        JSONObject json = new JSONObject();
-        try {
-            json.put("_id", SendUserID);
-            json.put("name", name);
-            json.put("emailid", emailid);
-            json.put("address", address);
-            json.put("profilepic", Result);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        RequestBody body = RequestBody.create(JSON, json.toString());
+        RequestBody body = RequestBody.create(JSON, jsonForUpdate.toString());
 
         final Request request = new Request.Builder()
                 .url(postUrl)

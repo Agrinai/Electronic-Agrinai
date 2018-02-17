@@ -13,9 +13,10 @@ tools:context=".User.UserEditScreen">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="match_parent"
         android:layout_height="@dimen/pfofileimage"
+        android:src="@drawable/userprofile"
         android:id="@+id/profileimgview"
         />
     <TextView
