@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import com.example.nanda.newagri.Home.HomeScreen;
 import com.example.nanda.newagri.R;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 
 public class UserScreen extends AppCompatActivity {
     ImageView cim;
@@ -29,6 +32,7 @@ public class UserScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userscreen);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -52,11 +56,15 @@ public class UserScreen extends AppCompatActivity {
             Useremail = user.getString("useremail", "");
             UserAddress = user.getString("useraddress", "");
             UserPhone = user.getString("userphone", "");
-        Picasso.with(this).load(picstring).into(cim);
-        edname.setText("" + UserName);
-        edphno.setText("" + UserPhone);
-        edmailid.setText("" + Useremail);
-        edaddress.setText("" + UserAddress);
+        if(UserName.length()!=0){
+            Picasso.with(this).load(picstring).into(cim);
+            edname.setText("" + UserName);
+            edphno.setText("" + UserPhone);
+            edmailid.setText("" + Useremail);
+            edaddress.setText("" + UserAddress);
+        }
+
+
 
     }
 

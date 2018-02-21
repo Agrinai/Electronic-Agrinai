@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.nanda.newagri.Home.HomeScreen;
 import com.example.nanda.newagri.R;
@@ -83,7 +84,8 @@ import okhttp3.Response;
         });
     }
     void postRequest(String postBody) throws IOException {
-        String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/saveUser";
+        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/saveUser";
+        //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/saveUser";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         OkHttpClient client = new OkHttpClient();
@@ -108,16 +110,16 @@ import okhttp3.Response;
 
             @Override
             public void onResponse(okhttp3.Call call, final Response response) throws IOException {
-               //Log.d("Page:119",response.body().string());
-                final String myRes=response.body().string();
+                //Log.d("Page:119",response.body().string());
+                final String myRes = response.body().string();
 
 
                 Spassword.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            JSONObject resData=new JSONObject(myRes);
-                            JSONObject data=resData.getJSONObject("data");
+                            JSONObject resData = new JSONObject(myRes);
+                            JSONObject data = resData.getJSONObject("data");
                             responseuserid = data.getString("_id");
                             responseusername = data.getString("name");
                             SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
@@ -136,6 +138,12 @@ import okhttp3.Response;
                 });
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Toast.makeText(getApplicationContext(), "you can't go to previous Page", Toast.LENGTH_LONG).show();
     }
 }
 

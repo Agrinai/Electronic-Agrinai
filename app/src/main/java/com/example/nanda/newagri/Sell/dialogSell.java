@@ -105,7 +105,8 @@ public class dialogSell extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String postUrl = "https://agrinai.herokuapp.com/agri/v1/Sell/findUserPostData";
+            String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Sell/findUserPostData";
+            //String postUrl = "https://agrinai.herokuapp.com/agri/v1/Sell/findUserPostData";
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
             OkHttpClient client = new OkHttpClient();
             RequestBody body = RequestBody.create(JSON, json.toString());

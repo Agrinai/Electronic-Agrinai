@@ -2,31 +2,32 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/buy_notify"
+            android:icon="@drawable/nav_ic_shopping_basket_24dp"
             android:title="Buy Notification" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/sell_notify"
+            android:icon="@drawable/nav_ic_shopping_cart_24dp"
+            android:visible="true"
             android:title="Sell Notification" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
+            android:id="@+id/lang_setting"
+            android:icon="@drawable/nav_ic_spellcheck_24dp"
+            android:visible="true"
             android:title="Language Settings" />
+        <item
+            android:id="@+id/nav_share"
+            android:visible="true"
+            android:icon="@drawable/nav_ic_share_24dp"
+            android:title="Share" />
+        <item
+            android:id="@+id/nav_exit"
+            android:visible="true"
+            android:icon="@drawable/nav_ic_close_24dp"
+            android:title="Exit" />
     </group>
 
-    <item android:title="">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Exit" />
-        </menu>
-    </item>
 
 </menu>

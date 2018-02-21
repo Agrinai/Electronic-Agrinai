@@ -16,7 +16,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_usereditscreen" />
+    <include layout="@layout/content_userscreen" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

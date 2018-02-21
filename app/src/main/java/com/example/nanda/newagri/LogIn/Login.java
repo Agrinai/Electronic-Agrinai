@@ -128,7 +128,8 @@ public class Login extends AppCompatActivity {
     }
 
     void postRequest(String postBody) throws IOException {
-        String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/logIn";
+        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/logIn";
+        //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/logIn";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         OkHttpClient client = new OkHttpClient();
@@ -175,8 +176,13 @@ public class Login extends AppCompatActivity {
                             editor.putString("name", userName);
                             editor.putString("userid", userID);
                             editor.apply();
-                            Intent i = new Intent(Login.this, HomeScreen.class);
-                            startActivity(i);
+                            if(userName.trim().length()!=0){
+                                Intent i = new Intent(Login.this, HomeScreen.class);
+                                startActivity(i);
+                            }else{
+                                   Toast.makeText(getApplicationContext(),"Mobile Number and Password is invalid",Toast.LENGTH_LONG).show();
+                            }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

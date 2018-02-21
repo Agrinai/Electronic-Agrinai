@@ -196,7 +196,8 @@ public class Buy extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            String postUrl = "https://agrinai.herokuapp.com/agri/v1/Buy/saveVeg";
+            String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Buy/saveVeg";
+            //String postUrl = "https://agrinai.herokuapp.com/agri/v1/Buy/saveVeg";
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
             JSONObject json=new JSONObject();
             try {

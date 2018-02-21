@@ -16,6 +16,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:layout_gravity="center"
         android:src="@drawable/userprofile" />
 
     <TextView
@@ -23,13 +24,16 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="AGRINAI"
-
+        android:layout_gravity="center"
+        android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="User@Agrinai.com" />
+        android:gravity="center"
+        android:text="User@Agrinai.com"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </LinearLayout>

@@ -40,7 +40,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class UserEditScreen extends AppCompatActivity {
-    ImageView cim;
+    ImageView cim,changeImage;
     ProgressDialog progressDialog;
     private static int RESULT_LOAD_IMAGE = 1;
     EditText edname, edmailid, edaddress;
@@ -60,6 +60,7 @@ public class UserEditScreen extends AppCompatActivity {
         edaddress = (EditText) findViewById(R.id.address);
         edname = (EditText) findViewById(R.id.nametext);
         cim = (ImageView) findViewById(R.id.profileimgview);
+        changeImage = (ImageView) findViewById(R.id.changeImage);
         bupdate = (Button) findViewById(R.id.updateProfile);
 
         //Get UserData From SharedPref//////////
@@ -87,7 +88,7 @@ public class UserEditScreen extends AppCompatActivity {
         }
         //Get UserData From SharedPref//////////
 
-        cim.setOnClickListener(new View.OnClickListener() {
+        changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -225,7 +226,8 @@ public class UserEditScreen extends AppCompatActivity {
 
 
     void updatePost() throws IOException {
-       String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/updateUser";
+        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/updateUser";
+       //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/updateUser";
         //String postUrl = "http://192.168.43.140:9000/agri/v1/User/updateUser";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 

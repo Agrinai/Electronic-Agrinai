@@ -94,7 +94,8 @@ class BuyWarehouse extends ArrayAdapter<String>
 
 
     void warehouseData(String postBody) throws IOException {
-        String postUrl="https://agrinai.herokuapp.com/agri/v1/Buy/deletePost";
+        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Buy/deletePost";
+        //String postUrl="https://agrinai.herokuapp.com/agri/v1/Buy/deletePost";
         //String postUrl="http://192.168.43.140/agri/v1/Buy/deletePost";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 

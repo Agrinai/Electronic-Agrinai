@@ -9,6 +9,7 @@
     <color name="green">#00bfa5</color>
     <color name="pink">#ff4081</color>
     <color name="gray">#d3d3d3</color>
+    <color name="windowBackground">#1d1d1d</color>
 
     <!--Color for buysell-->
     <color name="appgreen">#4CAF50</color>

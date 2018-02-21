@@ -33,7 +33,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Callback;
@@ -200,7 +199,8 @@ public class HomeScreen extends AppCompatActivity
         });
     }
     void getProfilePost(String postBody) throws IOException {
-        String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/getProfile";
+        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/getProfile";
+        //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/getProfile";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         OkHttpClient client = new OkHttpClient();
@@ -328,15 +328,15 @@ public class HomeScreen extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_gallery) {
+        if (id == R.id.buy_notify) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.sell_notify) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.lang_setting) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_exit) {
             finishAffinity();
             System.exit(0);
 
