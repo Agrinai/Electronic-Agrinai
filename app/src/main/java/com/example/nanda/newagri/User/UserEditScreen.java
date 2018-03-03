@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.example.nanda.newagri.Buy.MatchForBuy;
 import com.example.nanda.newagri.Home.HomeScreen;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -230,9 +231,13 @@ public class UserEditScreen extends AppCompatActivity {
        //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/updateUser";
         //String postUrl = "http://192.168.43.140:9000/agri/v1/User/updateUser";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
+        Log.d("Requpdate",jsonForUpdate.toString());
         RequestBody body = RequestBody.create(JSON, jsonForUpdate.toString());
-
+        progressDialog = new ProgressDialog(UserEditScreen.this);
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setIndeterminate(false);
+        progressDialog.setMessage("Please Wait");
+        progressDialog.show();
         final Request request = new Request.Builder()
                 .url(postUrl)
                 .post(body)
@@ -246,8 +251,7 @@ public class UserEditScreen extends AppCompatActivity {
                         Toast.makeText(UserEditScreen.this, "Failure", Toast.LENGTH_SHORT).show();
                     }
                 });
-                call.cancel();
-            }
+                call.cancel();}
 
             @Override
             public void onResponse(okhttp3.Call call, final Response response) throws IOException {
@@ -259,6 +263,7 @@ public class UserEditScreen extends AppCompatActivity {
                         try {
                             progressDialog.dismiss();
                             json = new JSONObject(myRes);
+                            Log.d("UpdateResult",json.toString());
                             JSONObject obj = json.getJSONObject("data");
                             UserName = obj.getString("name");
                             UserPhone = obj.getString("emailorphone");

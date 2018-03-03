@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.nanda.newagri.MapActivity"> >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/et_location"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_marginTop="5dp"
+            android:hint="Enter your location.." />
+        <Button
+            android:id="@+id/btn_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Location"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-light"
+            android:background="@drawable/buttonbrown"
+            android:textColor="@color/white"
+            android:layout_marginBottom="5dp"/>
+
+    </LinearLayout>
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mapSizeForSetlocation"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        tools:context="com.example.nanda.newagri.LogIn.SetUserLocation" />
+    <Button
+        android:id="@+id/btn_setLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonbrown"
+        android:text="Set Marker point as your Location"
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        />
+
+</LinearLayout>
+
+

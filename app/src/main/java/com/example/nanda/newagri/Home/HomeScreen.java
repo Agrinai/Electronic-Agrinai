@@ -22,9 +22,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nanda.newagri.Buy.BuyMatchMap;
 import com.example.nanda.newagri.BuyorSell.BuyorSell;
-import com.example.nanda.newagri.MapActivity;
+import com.example.nanda.newagri.BuyorSell.Sell;
 import com.example.nanda.newagri.R;
+import com.example.nanda.newagri.Sell.SellMatchMap;
 import com.example.nanda.newagri.User.UserScreen;
 import com.example.nanda.newagri.Zero;
 import com.squareup.picasso.Picasso;
@@ -44,8 +46,8 @@ import okhttp3.Response;
 
 public class HomeScreen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    TextView tv;
-    CircleImageView cim;
+    TextView tv,navUserName;
+    CircleImageView cim,navUserProfile;
     CardView SellCard,MarketCard, TransactionCard,PaymentCard,MapCard;
     String UserName,UserPhone,Useremail,UserAddress,Userpropic;
     String useridd,useriddd,SendUserID,userName,nss;
@@ -60,7 +62,7 @@ public class HomeScreen extends AppCompatActivity
         MarketCard=(CardView)findViewById(R.id.Market_card);
         TransactionCard=(CardView)findViewById(R.id.Transaction_card);
         PaymentCard=(CardView)findViewById(R.id.MyPayment_card);
-        MapCard=(CardView)findViewById(R.id.Map_card);
+        //MapCard=(CardView)findViewById(R.id.Map_card);
 
         //Get UserData From SharedPref//////////
         SharedPreferences userpic = getSharedPreferences("userpropic", Context.MODE_PRIVATE);
@@ -141,7 +143,7 @@ public class HomeScreen extends AppCompatActivity
         MarketCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"ModuleModule is OnProcess",Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(),"Market Price Module is OnProcess",Toast.LENGTH_LONG).show();
             }
         });
         TransactionCard.setOnClickListener(new View.OnClickListener() {
@@ -156,13 +158,13 @@ public class HomeScreen extends AppCompatActivity
                 Toast.makeText(getBaseContext(),"My Payment Module is OnProcess",Toast.LENGTH_LONG).show();
             }
         });
-        MapCard.setOnClickListener(new View.OnClickListener() {
+       /* MapCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(HomeScreen.this, MapActivity.class);
+                Intent i=new Intent(HomeScreen.this, SellMatchMap.class);
                 startActivity(i);
             }
-        });
+        });*/
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -176,6 +178,30 @@ public class HomeScreen extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        View header=navigationView.getHeaderView(0);
+        navUserName = (TextView)header.findViewById(R.id.navUserName);
+        navUserProfile = (CircleImageView)header.findViewById(R.id.navUserProfile);
+
+        if(picstring.length() !=0){
+            Picasso.with(this).load(picstring).into(navUserProfile);
+
+        }
+        if(username.length() !=0){
+            navUserName.setText(""+username);
+        }
+        if(username.toString().trim().length() !=0) {
+            navUserName.setText(""+username);
+        }
+        else{
+            if (userName.toString().trim().length() == 0) {
+                navUserName.setText(""+username);
+
+            }
+            if (nss.toString().trim().length() == 0) {
+                navUserName.setText(""+username);
+            }
+        }
+
 
         final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
@@ -319,6 +345,7 @@ public class HomeScreen extends AppCompatActivity
             return true;
         }
 
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -328,6 +355,10 @@ public class HomeScreen extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        if(id==R.id.nav_userprofile){
+            Intent i = new Intent(HomeScreen.this, UserScreen.class);
+            startActivity(i);
+        }
         if (id == R.id.buy_notify) {
 
         } else if (id == R.id.sell_notify) {
@@ -339,7 +370,6 @@ public class HomeScreen extends AppCompatActivity
         } else if (id == R.id.nav_exit) {
             finishAffinity();
             System.exit(0);
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

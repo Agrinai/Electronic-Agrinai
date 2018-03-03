@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.util.Set;
+
 import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -33,7 +36,7 @@ public class Login extends AppCompatActivity {
     TextView usertext,passtext;
     EditText idname, idpassword;
     Button login,signup;
-    String name, password,userName,userID;
+    String name, password,userName,userID,mLat,mLong;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,28 +166,58 @@ public class Login extends AppCompatActivity {
                     public void run() {
                         try {
                             JSONObject json = new JSONObject(myRes);
-                            JSONArray data = json.getJSONArray("data");
-                            for (int i = 0; i < data.length(); i++) {
-                                JSONObject obj = data.getJSONObject(i);
-                                userName = obj.getString("name");
-                                userID = obj.getString("_id");
+                            int code;
+                            code=json.getInt("code");
+                            Log.d("Login code", String.valueOf(code));
+                            if(code==200){
+                                JSONArray data = json.getJSONArray("data");
+                                if(data.length()!=0){
+                                    for (int i = 0; i < data.length(); i++) {
+                                        JSONObject obj = data.getJSONObject(i);
+                                        userName = obj.getString("name");
+                                        userID = obj.getString("_id");
+                                        JSONObject locationObject=obj.getJSONObject("location");
+                                        Log.d("locationObj",locationObject.toString());
+                                        mLat = locationObject.getString("lat");
+                                        mLong=locationObject.getString("long");
+                                        Log.d("mLat",mLat);
 
-                            }
-                            progressDialog.dismiss();
-                            SharedPreferences sp = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sp.edit();
-                            editor.putString("name", userName);
-                            editor.putString("userid", userID);
-                            editor.apply();
-                            if(userName.trim().length()!=0){
-                                Intent i = new Intent(Login.this, HomeScreen.class);
-                                startActivity(i);
+                                    }
+                                    progressDialog.dismiss();
+                                    SharedPreferences sp = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sp.edit();
+                                    editor.putString("name", userName);
+                                    editor.putString("userid", userID);
+                                    editor.apply();
+                                    if(userName.trim().length()!=0){
+                                        Intent i = new Intent(Login.this, HomeScreen.class);
+                                        startActivity(i);
+                                    }else{
+                                        Toast.makeText(getApplicationContext(),"Mobile Number and Password is invalid",Toast.LENGTH_LONG).show();
+                                    }
+                                }else{
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(),"Invalid Account",Toast.LENGTH_LONG).show();
+                                }
+
                             }else{
-                                   Toast.makeText(getApplicationContext(),"Mobile Number and Password is invalid",Toast.LENGTH_LONG).show();
+                                progressDialog.dismiss();
+                                Toast.makeText(getApplicationContext(),"Invalid Account",Toast.LENGTH_LONG).show();
                             }
+
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            SharedPreferences ssp2 = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 = ssp2.edit();
+                            editor2.clear();
+                            editor2.commit();
+
+                            Intent i=new Intent(Login.this, SetUserLocation.class);
+                            i.putExtra("userId",userID);
+                            i.putExtra("userName", userName);
+                            i.putExtra("check","l");
+                            startActivity(i);
+                            Toast.makeText(getApplication(),"Set Your Location",Toast.LENGTH_LONG).show();
                         }
                     }
                 });

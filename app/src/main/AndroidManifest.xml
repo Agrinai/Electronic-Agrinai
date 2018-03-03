@@ -1,110 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.nanda.newagri">
+<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.example.nanda.newagri">
 
-    <permission
-        android:name="com.example.nanda.newagri.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permision.CALL_PHONE" />
 
-    <uses-permission android:name="com.example.nanda.newagri.permission.MAPS_RECEIVE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permision.CALL_PHONE" />
+<application android:allowBackup="true" android:icon="@mipmap/buy" android:label="Agrinai"
+    android:largeHeap="true" android:supportsRtl="true" android:theme="@style/AppTheme">
+    <activity android:name=".Zero" android:label="@string/title_activity_tabforbuysell"
+        android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-    <application
-        android:allowBackup="true"
-        android:icon="@mipmap/buy"
-        android:label="Agrinai"
-        android:largeHeap="true"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+    <activity android:name=".BuyorSell.BuyorSell" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    <activity android:name=".LogIn.Login" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    <activity android:name=".LogIn.Signup" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    <activity android:name=".LogIn.Spassword" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    <activity android:name=".Sell.MatchForSell" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    <activity android:name=".Buy.MatchForBuy" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    <activity android:name=".Weather" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    <activity android:name=".Sell.dialogSell" android:screenOrientation="portrait" android:theme="@style/HiddenTitleTheme" />
+    <activity android:name=".Buy.dialogBuy" android:screenOrientation="portrait" android:theme="@style/HiddenTitleTheme" />
+    <activity android:name=".User.UserEditScreen" android:screenOrientation="portrait" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+    <activity android:name=".Home.HomeScreen" android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar" />
+    <activity android:name=".User.UserScreen" android:label="@string/title_activity_user_edit"
+        android:screenOrientation="portrait" android:theme="@style/AppTheme.NoActionBar" />
+    <activity android:name=".Buy.BuyMatchMap" android:label="@string/title_activity_buy_match_map"
+        android:screenOrientation="portrait" />
+    <activity android:name=".Sell.SellMatchMap" android:label="@string/title_activity_sell_match"
+        android:screenOrientation="portrait" />
 
-        <!--
-        <activity
-            android:name=".Zero"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+    <activity android:name=".Buy.AllBuymatchMap" android:label="@string/title_activity_all_buymatch_map" />
+    <activity android:name=".Sell.AllSellmatchMap" android:label="@string/title_activity_all_sellmatch_map"></activity>
+    <activity android:name=".LogIn.SetUserLocation" android:label="@string/title_activity_all_sellmatch_map"></activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        -->
-        <activity
-            android:name=".Zero"
-            android:label="@string/title_activity_tabforbuysell"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".BuyorSell.BuyorSell"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".LogIn.Login"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".LogIn.Signup"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".LogIn.Spassword"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Sell.MatchForSell"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Buy.MatchForBuy"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Weather"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Sell.dialogSell"
-            android:theme="@style/HiddenTitleTheme" />
-        <activity
-            android:name=".Buy.dialogBuy"
-            android:theme="@style/HiddenTitleTheme" />
-        <activity
-            android:name=".User.UserEditScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Home.HomeScreen"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".MapActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!--
-              ATTENTION: This data URL was auto-generated. We recommend that you use the HTTP scheme.
-              TODO: Change the host or pathPrefix as necessary.
-                -->
-                <data
-                    android:host="newagri.wptrafficanalyzer.in"
-                    android:pathPrefix="/main"
-                    android:scheme="http" />
-            </intent-filter>
-        </activity>
-
-        <meta-data
+    <!--
+           The API key for Google Maps-based APIs is defined as a string resource.
+           (See the file "res/values/google_maps_api.xml").
+           Note that the API key is linked to the encryption key used to sign the APK.
+           You need a different API key for each encryption key, including the release key that is used to
+           sign the APK for publishing.
+           You can define the keys for the debug and release targets in src/debug/ and src/release/.
+      -->
+    <!--  <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBAVA2F_EUpNCEOe10dli2yvX6fADO95o0" />
+            android:value="@string/google_maps_direction_key" />-->
+    <meta-data
+        android:name="com.google.android.geo.API_KEY" android:value="@string/google_maps_direction_key" />
 
-        <activity
-            android:name=".User.UserScreen"
-            android:label="@string/title_activity_user_edit"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-    </application>
+    <meta-data
+        android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
+</application>
+
+
 
 </manifest>

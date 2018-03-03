@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         applicationId "com.example.nanda.newagri"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
@@ -22,16 +22,16 @@ android {
     sourceSets {
         main {
             res.srcDirs =
-                    [
-                            'src/main/res/layouts/BuyorSell',
-                            'src/main/res/layouts/Buy',
-                            'src/main/res/layouts/LogIn',
-                            'src/main/res/layouts/Sell',
-                            'src/main/res/layouts/User',
-                            'src/main/res/layouts/Home',
-                            'src/main/res/layouts',
-                            'src/main/res/layout',
-                            'src/main/res'
+                    ['src/main/res/layouts',
+                     'src/main/res/layouts/BuyorSell',
+                     'src/main/res/layouts/Buy',
+                     'src/main/res/layouts/LogIn',
+                     'src/main/res/layouts/Sell',
+                     'src/main/res/layouts/User',
+                     'src/main/res/layouts/Home',
+                     'src/main/res/layout',
+                     'src/main/res/raw',
+                     'src/main/res'
                     ]
         }
     }
@@ -44,18 +44,19 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:cardview-v7:23.4.0'
-    compile 'com.android.support:support-v13:23.4.0'
-    compile 'com.android.support:design:23.4.0'
+
+
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:cardview-v7:25.0.0'
+    compile 'com.android.support:support-v13:25.0.0'
+    compile 'com.android.support:design:25.0.0'
     compile 'de.hdodenhof:circleimageview:1.2.1'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.cloudinary:cloudinary-core:1.4.1'
     compile 'com.cloudinary:cloudinary-android:1.4.1'
-
-
+    compile 'com.google.android.gms:play-services-maps:11.0.4'
+    testCompile 'junit:junit:4.12'
 }
 

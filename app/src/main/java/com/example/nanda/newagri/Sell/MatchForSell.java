@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,17 +43,20 @@ import okhttp3.Response;
 public class MatchForSell extends AppCompatActivity {
     ProgressDialog progressDialog;
     String match;
-    String product_name, kilo,price;
+    String product_name, kilo,price,mlat,mlong;;
     TextView notmatch;
     String  username,phno,ppic;
     int code=0;
     RecyclerView recyclerView;
     List<SellProduct> productList;
+    Button viewNearBy;
+    JSONArray parentArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matchsell);
+        viewNearBy=(Button)findViewById(R.id.viewnearby);
         notmatch=(TextView)findViewById(R.id.notmatch);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -63,6 +67,41 @@ public class MatchForSell extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("SellData", Context.MODE_PRIVATE);
         match = sp.getString("match", "");
         new getBuyerMatchesInSell().execute();
+        viewNearBy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    Intent i=new Intent(MatchForSell.this,AllSellmatchMap.class);
+                    Bundle bObj=new Bundle();
+                    bObj.putString("arrayOfObj",parentArray.toString());
+                    i.putExtras(bObj);
+                    startActivity(i);
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"Sorry Error in moving MapActivity",Toast.LENGTH_LONG).show();
+                }
+                /*try {
+                    for (int i = 0; i < parentArray.length(); i++) {
+                        JSONObject finalObject = parentArray.getJSONObject(i);
+                        product_name = finalObject.getString("VegName");
+                        Log.d("productname", product_name);
+                        kilo = finalObject.getString("VegKG");
+                        JSONObject useridd = finalObject.getJSONObject("UserId");
+                        JSONObject latlong = useridd.getJSONObject("location");
+                        mlat = latlong.getString("lat");
+                        mlong = latlong.getString("long");
+                        username = useridd.getString("name");
+                        Log.d("username", username);
+                        phno = useridd.getString("emailorphone");
+                        ppic = useridd.getString("profilepic");
+                    }
+
+                    }catch (JSONException e){
+                    e.printStackTrace();
+                }*/
+            }
+        });
     }
 
     public class getBuyerMatchesInSell extends AsyncTask<String,String,String> {
@@ -124,7 +163,7 @@ public class MatchForSell extends AppCompatActivity {
                         JSONObject json = new JSONObject(myRes);
                         code = json.getInt("code");
                         if (code == 200) {
-                            JSONArray parentArray = json.getJSONArray("data");
+                            parentArray = json.getJSONArray("data");
                             progressDialog.dismiss();
                             for (int i = 0; i < parentArray.length(); i++) {
                                 JSONObject finalObject = parentArray.getJSONObject(i);
@@ -132,6 +171,9 @@ public class MatchForSell extends AppCompatActivity {
                                 Log.d("productname", product_name);
                                 kilo = finalObject.getString("VegKG");
                                 JSONObject useridd = finalObject.getJSONObject("UserId");
+                                JSONObject latlong=useridd.getJSONObject("location");
+                                mlat=latlong.getString("lat");
+                                mlong=latlong.getString("long");
                                 username = useridd.getString("name");
                                 Log.d("username", username);
                                 phno = useridd.getString("emailorphone");
@@ -144,7 +186,10 @@ public class MatchForSell extends AppCompatActivity {
                                                 phno,
                                                 product_name,
                                                 kilo,
-                                                ppic));
+                                                ppic,
+                                                mlat,
+                                                mlong
+                                        ));
 
                             }
 

@@ -11,8 +11,10 @@ public class BuyProduct {
     private String kilo;
     private String price;
     private String image;
+    private String mlat;
+    private String mlong;
 
-    public BuyProduct(int id, String name,String mobilenumber ,String productname, String kilo, String price, String image) {
+    public BuyProduct(int id, String name,String mobilenumber ,String productname, String kilo, String price, String image,String mlat,String mlong) {
         this.id = id;
         this.name = name;
         this.mobilenumber = mobilenumber;
@@ -20,6 +22,8 @@ public class BuyProduct {
         this.kilo = kilo;
         this.price = price;
         this.image = image;
+        this.mlat = mlat;
+        this.mlong = mlong;
     }
 
     public int getId() {
@@ -47,5 +51,12 @@ public class BuyProduct {
 
     public String getImage() {
         return image;
+    }
+
+    public String getLat() {
+        return mlat;
+    }
+    public String getLong() {
+        return mlong;
     }
 }

@@ -1,0 +1,5 @@
+<resources>
+    <string name="title_activity_all_buymatch_map">Map</string>
+    <string name="title_activity_all_sellmatch_map">Map</string>
+    <string name="title_activity_set_user_location">Map</string>
+</resources>

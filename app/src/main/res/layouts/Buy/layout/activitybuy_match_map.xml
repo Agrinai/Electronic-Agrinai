@@ -1,0 +1,119 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mapSize"
+            tools:context="com.example.nanda.newagri.Buy.BuyMatchMap" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/detailslayout"
+            android:layout_margin="5dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/detailsText"
+                android:text="Seller Detail"
+                android:gravity="center"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/appgreen"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/marginLeft70"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:layout_marginLeft="@dimen/marginLeft100"
+                    android:fontFamily="sans-serif-light"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nameText"
+                    android:text="nanda"
+                    android:fontFamily="sans-serif-light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/marginLeft70"
+                    android:layout_height="wrap_content"
+                    android:text="PhoneNO"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginLeft="@dimen/marginLeft100"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/phonenumberText"
+                    android:text="9087583028"
+                    android:fontFamily="sans-serif-light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/marginLeft70"
+                    android:layout_height="wrap_content"
+                    android:text="Distance"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginLeft="@dimen/marginLeft100"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/KiloMetre"
+                    android:text="8.1km"
+                    android:fontFamily="sans-serif-light"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="@dimen/marginLeft70"
+                    android:layout_height="wrap_content"
+                    android:text="Duration"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginLeft="@dimen/marginLeft100"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/duration"
+                    android:fontFamily="sans-serif-light"
+                    android:text="43 min"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+
+

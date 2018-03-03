@@ -18,6 +18,8 @@
     <string name="title_activity_buy_or_sell">BuyOrSell</string>
     <string name="title_activity_tabforbuysell">Agrinai</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_buy_match_map">Map</string>
+    <string name="title_activity_sell_match">Map</string>
     <string-array name="logout">
         <item></item>
         <item>Log out</item>

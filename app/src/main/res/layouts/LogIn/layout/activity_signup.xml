@@ -68,7 +68,7 @@
             android:layout_height="40dp"
             android:text="Next"
             android:id="@+id/snext"
-            android:background="@drawable/button"
+            android:background="#228b22"
             android:textColor="#ffffff"
             android:layout_margin="10dp"
             />

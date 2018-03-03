@@ -61,7 +61,8 @@ public class MapActivity extends AppCompatActivity {
             }
         };
 
-        // Setting button click event listener for the find button
+        // Setting but
+        ton click event listener for the find button
         btn_find.setOnClickListener(findClickListener);
 
     }

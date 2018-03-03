@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.nanda.agrilistview.Match">
+    tools:context="com.example.nanda.newagri.Sell.MatchForSell">
 
     <TextView
         android:layout_width="match_parent"
@@ -24,10 +24,26 @@
         android:gravity="center"
         android:layout_centerVertical="true"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:text="Search via locality"
+        android:gravity="center|left"
+        android:background="@drawable/button"
+        android:textColor="@color/white"
+        android:drawableRight="@drawable/ic_location_on_black_24dp"
+        android:drawablePadding="20dp"
+        android:paddingLeft="20dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif-light"
+        android:id="@+id/viewnearby"
+        />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/viewnearby"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_height="match_parent" />
 </RelativeLayout>

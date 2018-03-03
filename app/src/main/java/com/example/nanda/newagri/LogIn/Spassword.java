@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,7 +35,7 @@ import okhttp3.Response;
       Button screate;
       String newpassword,newconfirmpassword;
       String  userName,newemailidorphonenumber;
-    String responseusername,responseuserid;
+    String responseusername,responseuserid,mLat,mLong;
     int code;
 
     @Override
@@ -122,6 +123,12 @@ import okhttp3.Response;
                             JSONObject data = resData.getJSONObject("data");
                             responseuserid = data.getString("_id");
                             responseusername = data.getString("name");
+                            JSONObject locationObject=data.getJSONObject("location");
+                            Log.d("locationObj",locationObject.toString());
+                            mLat = locationObject.getString("lat");
+                            mLong=locationObject.getString("long");
+                            Log.d("mLat",mLat);
+
                             SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString("name", responseusername);
@@ -132,7 +139,18 @@ import okhttp3.Response;
                             startActivity(i);
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            SharedPreferences ssp2 = getSharedPreferences("user", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editor2 = ssp2.edit();
+                            editor2.clear();
+                            editor2.commit();
+                            progressDialog.dismiss();
+
+                            Intent i=new Intent(Spassword.this, SetUserLocation.class);
+                            i.putExtra("userId",responseuserid);
+                            i.putExtra("userName", responseusername);
+                            i.putExtra("check","s");
+                            startActivity(i);
+                            Toast.makeText(getApplication(),"Set Your Location",Toast.LENGTH_LONG).show();
                         }
                     }
                 });

@@ -1,12 +1,17 @@
 package com.example.nanda.newagri.Buy;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nanda.newagri.R;
 import com.squareup.picasso.Picasso;
@@ -44,7 +49,7 @@ public class BuyProductAdapter extends RecyclerView.Adapter<BuyProductAdapter.Pr
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         //getting the product of the specified position
-        BuyProduct product = productList.get(position);
+        final BuyProduct product = productList.get(position);
 
         //binding the data with the viewholder views
         holder.textViewTitle.setText("Name : "+product.getName());
@@ -54,6 +59,35 @@ public class BuyProductAdapter extends RecyclerView.Adapter<BuyProductAdapter.Pr
         holder.textViewPrice.setText("Price : "+String.valueOf(product.getPrice())+".0 ₹");
         Picasso.with(mCtx).load(product.getImage()).into(holder.imageView);
         //holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage()));
+        holder.textViewPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String Name=product.getPrice();
+                Log.d("Price",Name);
+            }
+        });
+        holder.mapView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mlat=product.getLat();
+                String mlong=product.getLong();
+                String name=product.getName();
+                String phno=product.getMobilenumber();
+                Intent i=new Intent(mCtx,BuyMatchMap.class);
+                i.putExtra("mlat",mlat);
+                i.putExtra("mlong",mlong);
+                i.putExtra("name",name);
+                i.putExtra("phno",phno);
+                mCtx.startActivity(i);
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
 
     }
 
@@ -68,6 +102,7 @@ public class BuyProductAdapter extends RecyclerView.Adapter<BuyProductAdapter.Pr
 
         TextView textViewTitle, textViewProductName,textViewMobileNumber, textViewKilo, textViewPrice;
         ImageView imageView;
+        Button mapView;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
@@ -78,6 +113,7 @@ public class BuyProductAdapter extends RecyclerView.Adapter<BuyProductAdapter.Pr
             textViewKilo =(TextView) itemView.findViewById(R.id.textViewKilo);
             textViewPrice = (TextView)itemView.findViewById(R.id.textViewPrice);
             imageView = (ImageView)itemView.findViewById(R.id.imageView);
+            mapView=(Button)itemView.findViewById(R.id.mapView);
         }
     }
 }
