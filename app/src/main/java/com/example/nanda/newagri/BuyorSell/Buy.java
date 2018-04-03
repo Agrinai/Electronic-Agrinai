@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nanda.newagri.Buy.dialogBuy;
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.Home.HomeScreen;
 import com.example.nanda.newagri.NamesList;
 import com.example.nanda.newagri.R;
@@ -50,6 +51,7 @@ public class Buy extends Fragment {
     ListView listView,veglist;
     String useridd,useriddd,SendUserID;
     String[] PN;
+    Constants constant=new Constants();
 
 
     public Buy() {
@@ -164,13 +166,8 @@ public class Buy extends Fragment {
         warehouse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Intent i=new Intent(getActivity(),dialogBuy.class);
+                Intent i=new Intent(getActivity(),dialogBuy.class);
                 startActivity(i);
-                Dialog dialog=new Dialog(getActivity());
-
-                dialog.setContentView(R.layout.activity_dialog_sale);
-                dialog.setCancelable(true);
-                dialog.show();
             }
         });
 
@@ -196,7 +193,8 @@ public class Buy extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Buy/saveVeg";
+            String postUrl=constant.URL()+"/agri/v1/Buy/saveVeg";
+           // String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Buy/saveVeg";
             //String postUrl = "https://agrinai.herokuapp.com/agri/v1/Buy/saveVeg";
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
             JSONObject json=new JSONObject();

@@ -27,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -118,8 +119,8 @@ public class SellMatchMap extends FragmentActivity implements GoogleMap.OnMyLoca
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
-        mMap.setMyLocationEnabled(true);
-        mMap.setOnMyLocationButtonClickListener(this);
+        /*mMap.setMyLocationEnabled(true);
+        mMap.setOnMyLocationButtonClickListener(this);*/
         getLocation();
         // Add a marker in Sydney and move the camera
        /* perumbakkam = new LatLng(12.900727, 80.196881);
@@ -283,7 +284,7 @@ public class SellMatchMap extends FragmentActivity implements GoogleMap.OnMyLoca
                 slideUpAnimation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_anim);
                 detailslayout.startAnimation(slideUpAnimation);
                 detailslayout.setVisibility(View.VISIBLE);
-                mMap.addMarker(new MarkerOptions().position(currentLatLong).title("Your Location").snippet("Start Point"));
+                mMap.addMarker(new MarkerOptions().position(currentLatLong).title("Your Location").snippet("Start Point").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                 mMap.addMarker(new MarkerOptions().position(destinationlatlong).title("End point").snippet("Distance :"+DistanceInKm+"Duration :"+DurationInMinute));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLatLong));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(destinationlatlong));

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.example.nanda.newagri.Buy.MatchForBuy;
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.Home.HomeScreen;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,6 +52,7 @@ public class UserEditScreen extends AppCompatActivity {
     JSONObject imgResJson;
     JSONObject jsonForUpdate = new JSONObject();
     String useridd, useriddd, SendUserID;
+    Constants constant=new Constants();
 
 
     @Override
@@ -162,6 +164,7 @@ public class UserEditScreen extends AppCompatActivity {
             Cloudinary cloudinary = new Cloudinary(config);
             try {
                 Result=cloudinary.uploader().upload(file, ObjectUtils.emptyMap()).toString();
+                Log.d("CloudinaryResult",Result);
                 jsonForUpdate.put("profilepic", Result);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -227,17 +230,13 @@ public class UserEditScreen extends AppCompatActivity {
 
 
     void updatePost() throws IOException {
-        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/updateUser";
-       //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/updateUser";
+        //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/updateUser";
+        String postUrl=constant.URL()+"/agri/v1/User/updateUser";
+        //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/updateUser";
         //String postUrl = "http://192.168.43.140:9000/agri/v1/User/updateUser";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         Log.d("Requpdate",jsonForUpdate.toString());
         RequestBody body = RequestBody.create(JSON, jsonForUpdate.toString());
-        progressDialog = new ProgressDialog(UserEditScreen.this);
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setIndeterminate(false);
-        progressDialog.setMessage("Please Wait");
-        progressDialog.show();
         final Request request = new Request.Builder()
                 .url(postUrl)
                 .post(body)
@@ -256,6 +255,7 @@ public class UserEditScreen extends AppCompatActivity {
             @Override
             public void onResponse(okhttp3.Call call, final Response response) throws IOException {
                 final String myRes = response.body().string();
+                Log.d("CloudinaryResult1",myRes);
                 UserEditScreen.this.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

@@ -2,7 +2,8 @@ package com.example.nanda.newagri.Buy;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.net.Uri;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.nanda.newagri.R;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -54,7 +58,7 @@ public class BuyProductAdapter extends RecyclerView.Adapter<BuyProductAdapter.Pr
         //binding the data with the viewholder views
         holder.textViewTitle.setText("Name : "+product.getName());
         holder.textViewProductName.setText("Name : "+product.getProductname());
-        holder.textViewMobileNumber.setText("MobileNumber : "+product.getMobilenumber());
+        //holder.textViewMobileNumber.setText("MobileNumber : "+product.getMobilenumber());
         holder.textViewKilo.setText("Quantity : "+String.valueOf(product.getKilo())+" KG ");
         holder.textViewPrice.setText("Price : "+String.valueOf(product.getPrice())+".0 ₹");
         Picasso.with(mCtx).load(product.getImage()).into(holder.imageView);
@@ -66,7 +70,33 @@ public class BuyProductAdapter extends RecyclerView.Adapter<BuyProductAdapter.Pr
                 Log.d("Price",Name);
             }
         });
-        holder.mapView.setOnClickListener(new View.OnClickListener() {
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JSONObject userObj=new JSONObject();
+                try {
+                    userObj.put("sellerid",product.getSellerId());
+                    userObj.put("selleruserid",product.getSellerUserId());
+                    userObj.put("vegname",product.getProductname());
+                    userObj.put("kg",product.getKilo());
+                    userObj.put("price",product.getPrice());
+                    userObj.put("username",product.getName());
+                    userObj.put("userpic",product.getImage());
+                    userObj.put("contact",product.getMobilenumber());
+                    userObj.put("lat",product.getLat());
+                    userObj.put("lng",product.getLong());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(mCtx,"Selected",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(mCtx, BuyUserProfile.class);
+                i.putExtra("userObj", String.valueOf(userObj));
+                mCtx.startActivity(i);
+
+            }
+        });
+        /*holder.mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String mlat=product.getLat();
@@ -81,13 +111,14 @@ public class BuyProductAdapter extends RecyclerView.Adapter<BuyProductAdapter.Pr
                 mCtx.startActivity(i);
             }
         });
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.callView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
+                String contactStr=product.getMobilenumber();
+                mCtx.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",contactStr,null)));
             }
-        });
+        });*/
+
 
     }
 
@@ -102,18 +133,22 @@ public class BuyProductAdapter extends RecyclerView.Adapter<BuyProductAdapter.Pr
 
         TextView textViewTitle, textViewProductName,textViewMobileNumber, textViewKilo, textViewPrice;
         ImageView imageView;
-        Button mapView;
+        ImageView mapView,callView;
+        CardView finalCardView;
 
         public ProductViewHolder(View itemView) {
             super(itemView);
 
             textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
             textViewProductName =(TextView) itemView.findViewById(R.id.textViewProductName);
-            textViewMobileNumber=(TextView) itemView.findViewById(R.id.textViewMobileNumber);
+            //textViewMobileNumber=(TextView) itemView.findViewById(R.id.textViewMobileNumber);
             textViewKilo =(TextView) itemView.findViewById(R.id.textViewKilo);
             textViewPrice = (TextView)itemView.findViewById(R.id.textViewPrice);
             imageView = (ImageView)itemView.findViewById(R.id.imageView);
-            mapView=(Button)itemView.findViewById(R.id.mapView);
+//            mapView = (ImageView)itemView.findViewById(R.id.mapView);
+//            callView = (ImageView)itemView.findViewById(R.id.callView);
+            finalCardView=(CardView)itemView.findViewById(R.id.finalcardView);
+            //mapView=(Button)itemView.findViewById(R.id.mapView);
         }
     }
 }

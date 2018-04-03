@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nanda.newagri.BuyorSell.BuyorSell;
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.R;
 
 import org.json.JSONArray;
@@ -51,11 +52,14 @@ public class MatchForSell extends AppCompatActivity {
     List<SellProduct> productList;
     Button viewNearBy;
     JSONArray parentArray;
+    String useridd,useriddd,SendUserID;
+    Constants constant=new Constants();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_matchsell);
+
         viewNearBy=(Button)findViewById(R.id.viewnearby);
         notmatch=(TextView)findViewById(R.id.notmatch);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
@@ -64,8 +68,21 @@ public class MatchForSell extends AppCompatActivity {
 
         //Product List
         productList = new ArrayList<>();
-        SharedPreferences sp = getSharedPreferences("SellData", Context.MODE_PRIVATE);
-        match = sp.getString("match", "");
+
+        SharedPreferences sp = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
+        useriddd = sp.getString("userid", "");
+        SharedPreferences sp1 = getSharedPreferences("user", Context.MODE_PRIVATE);
+        useridd = sp1.getString("userid", "");
+
+        if (useriddd.length() != 0) {
+            SendUserID = useriddd;
+        }
+        if (useridd.length() != 0) {
+            SendUserID = useridd;
+        }
+
+        SharedPreferences sp2 = getSharedPreferences("SellData", Context.MODE_PRIVATE);
+        match = sp2.getString("match", "");
         new getBuyerMatchesInSell().execute();
         viewNearBy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +134,8 @@ public class MatchForSell extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Sell/findVeg";
+            String postUrl=constant.URL()+"/agri/v1/Sell/findVeg";
+            //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Sell/findVeg";
            // String postUrl = "https://agrinai.herokuapp.com/agri/v1/Sell/findVeg";
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -126,6 +144,7 @@ public class MatchForSell extends AppCompatActivity {
             JSONObject json=new JSONObject();
             try {
                 json.put("VegName", match);
+                json.put("UserId",SendUserID);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -165,6 +184,8 @@ public class MatchForSell extends AppCompatActivity {
                         if (code == 200) {
                             parentArray = json.getJSONArray("data");
                             progressDialog.dismiss();
+                            Log.d("LengthParent array",String.valueOf(parentArray.length()));
+
                             for (int i = 0; i < parentArray.length(); i++) {
                                 JSONObject finalObject = parentArray.getJSONObject(i);
                                 product_name = finalObject.getString("VegName");
@@ -192,8 +213,6 @@ public class MatchForSell extends AppCompatActivity {
                                         ));
 
                             }
-
-
                             //creating recyclerview adapter
                             SellProductAdapter adapter = new SellProductAdapter(getApplicationContext(), productList);
 
@@ -202,6 +221,7 @@ public class MatchForSell extends AppCompatActivity {
                         } else {
                             progressDialog.dismiss();
                             notmatch.setText("Sorry No Matches Found");
+                                viewNearBy.setVisibility(View.INVISIBLE);
                         }
 
 

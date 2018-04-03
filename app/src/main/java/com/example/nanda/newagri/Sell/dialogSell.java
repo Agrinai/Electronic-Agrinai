@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.nanda.newagri.BuyorSell.BuyorSell;
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.Sell.SellWarehouse;
 import com.example.nanda.newagri.R;
 
@@ -40,7 +42,7 @@ public class dialogSell extends AppCompatActivity {
     String product_name,kilo,id;
     String buyorsell="Sell";
     JSONObject json=new JSONObject();
-
+    Constants constant=new Constants();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +107,8 @@ public class dialogSell extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Sell/findUserPostData";
+            String postUrl=constant.URL()+"/agri/v1/Sell/findUserPostData";
+            //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Sell/findUserPostData";
             //String postUrl = "https://agrinai.herokuapp.com/agri/v1/Sell/findUserPostData";
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
             OkHttpClient client = new OkHttpClient();
@@ -149,6 +152,8 @@ public class dialogSell extends AppCompatActivity {
                         }
                         SellWarehouse WarehouseList = new SellWarehouse(dialogSell.this,PN,KG,_id);
                         veglist.setAdapter(WarehouseList);
+                    }catch (NullPointerException ie){
+                        Toast.makeText(getApplicationContext(),"check Your Internet Connection",Toast.LENGTH_LONG).show();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

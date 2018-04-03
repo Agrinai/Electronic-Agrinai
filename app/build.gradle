@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.example.nanda.newagri"
@@ -11,6 +11,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -29,6 +30,8 @@ android {
                      'src/main/res/layouts/Sell',
                      'src/main/res/layouts/User',
                      'src/main/res/layouts/Home',
+                     'src/main/res/layouts/Agriculture',
+                     'src/main/res/layouts/TransactionHistory',
                      'src/main/res/layout',
                      'src/main/res/raw',
                      'src/main/res'
@@ -44,8 +47,6 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-
-
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:cardview-v7:25.0.0'
     compile 'com.android.support:support-v13:25.0.0'
@@ -57,6 +58,9 @@ dependencies {
     compile 'com.cloudinary:cloudinary-core:1.4.1'
     compile 'com.cloudinary:cloudinary-android:1.4.1'
     compile 'com.google.android.gms:play-services-maps:11.0.4'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
     testCompile 'junit:junit:4.12'
 }
 

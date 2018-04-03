@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nanda.newagri.Buy.dialogBuy;
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.R;
 
 
@@ -53,6 +56,7 @@ class BuyWarehouse extends ArrayAdapter<String>
     private String[] KG;
     private String[] _id;
     private Activity context;
+    Constants constant=new Constants();
 
     public BuyWarehouse(Activity context, String[] PN, String[] KG, String[] _id) {
         super(context, R.layout.buywarehouse, PN);
@@ -69,10 +73,26 @@ class BuyWarehouse extends ArrayAdapter<String>
         TextView tv1 = (TextView) listViewItem.findViewById(R.id.vname);
         TextView tv2 = (TextView) listViewItem.findViewById(R.id.vkg);
         ImageView go=(ImageView) listViewItem.findViewById(R.id.go);
+        CardView card_view=(CardView)listViewItem.findViewById(R.id.card_view);
+
 
             tv1.setText("PRODUCT NAME:  " + PN[position]);
             tv2.setText("KG:  " + KG[position]);
 
+            card_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String id=_id[position];
+                    String veg=PN[position];
+                    SharedPreferences sp = context.getSharedPreferences("BuyData", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("id", id);
+                    editor.putString("match", veg);
+                    editor.apply();
+                    Intent a = new Intent(context, MatchForBuy.class);
+                    context.startActivity(a);
+                }
+            });
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +114,8 @@ class BuyWarehouse extends ArrayAdapter<String>
 
 
     void warehouseData(String postBody) throws IOException {
-        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Buy/deletePost";
+        String postUrl=constant.URL()+"/agri/v1/Buy/deletePost";
+        //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Buy/deletePost";
         //String postUrl="https://agrinai.herokuapp.com/agri/v1/Buy/deletePost";
         //String postUrl="http://192.168.43.140/agri/v1/Buy/deletePost";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");

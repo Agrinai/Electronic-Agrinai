@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nanda.newagri.Buy.dialogBuy;
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.R;
 import com.example.nanda.newagri.Sell.dialogSell;
 
@@ -48,6 +49,7 @@ class SellWarehouse extends ArrayAdapter<String>
     private String[] KG;
     private String[] _id;
     private Activity context;
+    Constants constant=new Constants();
 
     public SellWarehouse(Activity context, String[] PN, String[] KG, String[] _id) {
         super(context, R.layout.sellwarehouse, PN);
@@ -88,7 +90,8 @@ class SellWarehouse extends ArrayAdapter<String>
 
 
     void warehouseData(String postBody) throws IOException {
-        String postUrl="https://agrinai.herokuapp.com/agri/v1/Sell/deletePost";
+        String postUrl=constant.URL()+"/agri/v1/Sell/deletePost";
+        //String postUrl="https://agrinai.herokuapp.com/agri/v1/Sell/deletePost";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
         OkHttpClient client = new OkHttpClient();

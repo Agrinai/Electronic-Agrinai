@@ -6,6 +6,8 @@ package com.example.nanda.newagri.Buy;
 public class BuyProduct {
     private int id;
     private String name;
+    private String sellerId;
+    private String sellerUserId;
     private String mobilenumber;
     private String productname;
     private String kilo;
@@ -14,9 +16,11 @@ public class BuyProduct {
     private String mlat;
     private String mlong;
 
-    public BuyProduct(int id, String name,String mobilenumber ,String productname, String kilo, String price, String image,String mlat,String mlong) {
+    public BuyProduct(int id,String sellerId,String sellerUserId, String name,String mobilenumber ,String productname, String kilo, String price, String image,String mlat,String mlong) {
         this.id = id;
         this.name = name;
+        this.sellerId = sellerId;
+        this.sellerUserId = sellerUserId;
         this.mobilenumber = mobilenumber;
         this.productname = productname;
         this.kilo = kilo;
@@ -32,6 +36,12 @@ public class BuyProduct {
 
     public String getName() {
         return name;
+    }
+    public String getSellerId() {
+        return sellerId;
+    }
+    public String getSellerUserId() {
+        return sellerUserId;
     }
     public String getMobilenumber() {
         return mobilenumber;

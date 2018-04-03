@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Agrinai</string>
     <string name="title_activity_home">HomeScreen</string>
-    <string name="title_activity_home_screen">      AGRINAI</string>
+    <string name="title_activity_home_screen">AGRINAI</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -20,6 +20,15 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_buy_match_map">Map</string>
     <string name="title_activity_sell_match">Map</string>
+
+    <string name="title_activity_all_buymatch_map">Map</string>
+    <string name="title_activity_all_sellmatch_map">Map</string>
+    <string name="title_activity_set_user_location">Map</string>
+    <string name="title_activity_menu">Menu</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Agriculture</string>
+    <string name="title_notifications">News Feed</string>
+
     <string-array name="logout">
         <item></item>
         <item>Log out</item>
@@ -32,5 +41,41 @@
     <!--String For BUYSELLMATCH-->
 
     <string name="title_activity_user_edit">UserEdit</string>
+    <string name="save">Save</string>
+
+    <string name="vegetabledetails">Vegetable Details</string>
+    <string name="vegetablename">Vegetable Name</string>
+    <string name="vegetableavailablekg">Available KG</string>
+    <string name="vegetableprice">Price</string>
+    <string name="vegetable1kgprice">Price(1KG)</string>
+    <string name="vegetablemarket1kgprice">Market Price(1KG)</string>
+
+    <string name="userdetails">User Details</string>
+    <string name="sellername">Seller Name</string>
+    <string name="contact">Mobile Number</string>
+    <string name="formingtype">Forming Type</string>
+    <string name="location">Location</string>
+    <string name="ratings">Ratings</string>
+    <string name="direction">Direction</string>
+    <string name="call">Call</string>
+    <string name="message">Message</string>
+    <string name="payment">Payment Option</string>
+    <string name="orderdetails">Order Details</string>
+    <string name="selectkg">KG</string>
+    <string name="totalamount">Total Amount</string>
+    <string name="buynow">Buy Now</string>
+
+    <string name="cashondelivery">Cash on delivery</string>
+
+    <string-array name="ecorelationship">
+        <item>Select</item>
+        <item>பழக்காடி</item>
+        <item>மண்புழு உரம்</item>
+        <item>அமிர்த கரைசல்</item>
+        <item>வீட்டில் இயற்கை உரம் தயாரித்தல்</item>
+        <item>தோட்டத்தில் எருதயாரித்தல்</item>
+    </string-array>
+
+
 
 </resources>

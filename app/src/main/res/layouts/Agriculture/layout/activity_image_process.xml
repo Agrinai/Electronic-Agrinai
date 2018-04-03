@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nanda.newagri.Agriculture.ImageProcess">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="AGRINAI"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-light"
+            android:background="@color/appgreen"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/margin10"
+            android:layout_marginTop="@dimen/margin10">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Take Image From Camera"
+                    android:id="@+id/bcamera"
+                    android:background="@drawable/button"
+                    android:textColor="@color/white"
+                    android:drawablePadding="-70dp"
+                    android:drawableLeft="@drawable/ic_camera_black_24dp"
+                    android:fontFamily="sans-serif-light"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_gallery"
+                    android:drawablePadding="-100dp"
+                    android:text="Select From Gallery"
+                    android:id="@+id/bgallery"
+                    android:background="@drawable/button"
+                    android:textColor="@color/white"
+                    android:fontFamily="sans-serif-light"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin260"
+                android:src="@drawable/userprofile"
+                android:id="@+id/soilimg"
+                android:layout_marginTop="@dimen/margin20"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:background="@drawable/button"
+                android:fontFamily="sans-serif-light"
+                android:layout_marginTop="@dimen/margin60"
+                android:id="@+id/bnext"/>
+
+
+        </LinearLayout></LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

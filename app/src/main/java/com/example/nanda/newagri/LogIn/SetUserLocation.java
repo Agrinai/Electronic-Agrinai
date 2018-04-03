@@ -1,8 +1,11 @@
 package com.example.nanda.newagri.LogIn;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -13,6 +16,7 @@ import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +24,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.nanda.newagri.Buy.MatchForBuy;
+import com.example.nanda.newagri.Constants;
+import com.example.nanda.newagri.GetPermission;
 import com.example.nanda.newagri.Home.HomeScreen;
 import com.example.nanda.newagri.R;
 import com.example.nanda.newagri.Sell.SellMatchMap;
@@ -27,6 +33,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -36,6 +43,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -46,11 +56,16 @@ import okhttp3.Response;
 public class SetUserLocation extends FragmentActivity implements GoogleMap.OnMyLocationButtonClickListener, OnMapReadyCallback {
 
     private GoogleMap mMap;
+
     MarkerOptions markerOptions;
     LatLng latLng, selectedLatlong;
     ProgressDialog progressDialog;
     String userId,userName,check;
+    int flag;
     private static final String TAG = SetUserLocation.class.getSimpleName();
+    private  static final  int MY_PERMISSIONS_REQUEST_READ_CONTACTS=0;
+    private static final String permisson=Manifest.permission.ACCESS_FINE_LOCATION;
+    Constants constant=new Constants();
 
 
     @Override
@@ -58,6 +73,7 @@ public class SetUserLocation extends FragmentActivity implements GoogleMap.OnMyL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_user_location);
         userId=getIntent().getStringExtra("userId");
+        Log.d("UserId",userId);
         userName=getIntent().getStringExtra("userName");
         check=getIntent().getStringExtra("check");
 
@@ -83,10 +99,10 @@ public class SetUserLocation extends FragmentActivity implements GoogleMap.OnMyL
         btn_setLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectedLatlong==null){
-                    Toast.makeText(getApplicationContext(), "Please Mark your location on Map", Toast.LENGTH_SHORT).show();
-                }else{
+                if(flag==1){
                     new setlatLong().execute();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please Mark your location on Map", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -99,12 +115,24 @@ public class SetUserLocation extends FragmentActivity implements GoogleMap.OnMyL
     }
 
     private class GeocoderTask extends AsyncTask<String, Void, List<Address>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(SetUserLocation.this);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setIndeterminate(false);
+            progressDialog.setMessage("Please Wait");
+            progressDialog.show();
+        }
+
+
 
         @Override
         protected List<Address> doInBackground(String... locationName) {
             // Creating an instance of Geocoder class
             Geocoder geocoder = new Geocoder(getBaseContext());
             List<Address> addresses = null;
+
 
             try {
                 // Getting a maximum of 3 Address that matches the input text
@@ -117,6 +145,7 @@ public class SetUserLocation extends FragmentActivity implements GoogleMap.OnMyL
 
         @Override
         protected void onPostExecute(List<Address> addresses) {
+            progressDialog.dismiss();
 
             if (addresses == null || addresses.size() == 0) {
                 Toast.makeText(getBaseContext(), "No Location found", Toast.LENGTH_SHORT).show();
@@ -140,7 +169,7 @@ public class SetUserLocation extends FragmentActivity implements GoogleMap.OnMyL
                 // Locate the first location
                 if (i == 0)
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-                    mMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
+                    mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
             }
         }
     }
@@ -191,10 +220,11 @@ public class SetUserLocation extends FragmentActivity implements GoogleMap.OnMyL
             @Override
             public void onMapClick(LatLng latLng) {
                 selectedLatlong=latLng;
+                flag=1;
                 mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(selectedLatlong).title("Selected Location"));
+                mMap.addMarker(new MarkerOptions().position(selectedLatlong).title("Selected Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(selectedLatlong));
-                mMap.animateCamera(CameraUpdateFactory.zoomTo(16.0f));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(14.0f));
 
             }
         });
@@ -213,7 +243,8 @@ public class SetUserLocation extends FragmentActivity implements GoogleMap.OnMyL
 
         @Override
         protected String doInBackground(String... params) {
-            String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/getcoordinates";
+            String postUrl=constant.URL()+"/agri/v1/User/getcoordinates";
+            //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/getcoordinates";
             //String postUrl = "https://agrinai.herokuapp.com/agri/v1/Buy/findVeg";
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.R;
 
 import org.json.JSONException;
@@ -45,6 +46,7 @@ public class Signup extends Activity {
     Animation slideUpAnimation;
     Random rand = new Random();
     String otpCode;
+    Constants constant=new Constants();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,7 +103,8 @@ public class Signup extends Activity {
     }
 
     void postRequest(String postBody) throws IOException {
-        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/newUser";
+        String postUrl=constant.URL()+"/agri/v1/User/newUser";
+        //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/newUser";
        //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/newUser";
        //String postUrl = "http://192.168.43.140:9000/agri/v1/User/newUser";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");

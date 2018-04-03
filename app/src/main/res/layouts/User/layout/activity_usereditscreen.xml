@@ -7,6 +7,16 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".User.UserEditScreen">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="AGRINAI"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-light"
+        android:background="@color/appgreen"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"

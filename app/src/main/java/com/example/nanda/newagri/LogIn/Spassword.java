@@ -1,17 +1,23 @@
 package com.example.nanda.newagri.LogIn;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.nanda.newagri.Constants;
+import com.example.nanda.newagri.GetPermission;
 import com.example.nanda.newagri.Home.HomeScreen;
 import com.example.nanda.newagri.R;
 
@@ -36,7 +42,9 @@ import okhttp3.Response;
       String newpassword,newconfirmpassword;
       String  userName,newemailidorphonenumber;
     String responseusername,responseuserid,mLat,mLong;
+    private  static final  int MY_PERMISSIONS_REQUEST_READ_CONTACTS=0;
     int code;
+    Constants constant=new Constants();
 
     @Override
           protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +93,8 @@ import okhttp3.Response;
         });
     }
     void postRequest(String postBody) throws IOException {
-        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/saveUser";
+        String postUrl=constant.URL()+"/agri/v1/User/saveUser";
+        //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/saveUser";
         //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/saveUser";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -144,18 +153,33 @@ import okhttp3.Response;
                             editor2.clear();
                             editor2.commit();
                             progressDialog.dismiss();
-
-                            Intent i=new Intent(Spassword.this, SetUserLocation.class);
+                            NextPage();
+                           /* Intent i=new Intent(Spassword.this, SetUserLocation.class);
                             i.putExtra("userId",responseuserid);
                             i.putExtra("userName", responseusername);
                             i.putExtra("check","s");
                             startActivity(i);
-                            Toast.makeText(getApplication(),"Set Your Location",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplication(),"Set Your Location",Toast.LENGTH_LONG).show();*/
                         }
                     }
                 });
             }
         });
+    }
+    private void NextPage(){
+        if (ContextCompat.checkSelfPermission(Spassword.this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Intent i=new Intent(Spassword.this, GetPermission.class);
+            i.putExtra("userId",responseuserid);
+            i.putExtra("userName", responseusername);
+            i.putExtra("check","l");
+            startActivity(i);
+        }else {
+            Intent i=new Intent(Spassword.this, SetUserLocation.class);
+            i.putExtra("userId",responseuserid);
+            i.putExtra("userName", responseusername);
+            i.putExtra("check","l");
+            startActivity(i);
+        }
     }
 
     @Override

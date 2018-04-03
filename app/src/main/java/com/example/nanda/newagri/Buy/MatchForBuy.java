@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 
 import com.example.nanda.newagri.BuyorSell.BuyorSell;
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.Home.HomeScreen;
 import com.example.nanda.newagri.R;
 import com.example.nanda.newagri.Sell.AllSellmatchMap;
@@ -45,7 +46,7 @@ import okhttp3.Response;
 public class MatchForBuy extends AppCompatActivity {
     ProgressDialog progressDialog;
     String match;
-    String product_name, kilo,price,mlat,mlong;
+    String sellerId,sellerUserId,product_name, kilo,price,mlat,mlong;
     TextView notmatch;
     String  username,phno,ppic;
     int code=0;
@@ -53,7 +54,8 @@ public class MatchForBuy extends AppCompatActivity {
     List<BuyProduct> productList;
     Button viewNearBy;
     JSONArray parentArray;
-
+    String useridd,useriddd,SendUserID;
+    Constants constant=new Constants();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,9 +68,21 @@ public class MatchForBuy extends AppCompatActivity {
 
         //Product List
         productList = new ArrayList<>();
+        SharedPreferences sp = getSharedPreferences("loggeduser", Context.MODE_PRIVATE);
+        useriddd = sp.getString("userid", "");
+        SharedPreferences sp1 = getSharedPreferences("user", Context.MODE_PRIVATE);
+        useridd = sp1.getString("userid", "");
 
-        SharedPreferences sp = getSharedPreferences("BuyData", Context.MODE_PRIVATE);
-        match = sp.getString("match", "");
+        if (useriddd.length() != 0) {
+            SendUserID = useriddd;
+        }
+        if (useridd.length() != 0) {
+            SendUserID = useridd;
+        }
+
+
+        SharedPreferences sp2 = getSharedPreferences("BuyData", Context.MODE_PRIVATE);
+        match = sp2.getString("match", "");
         new getSellerMatchesInBuy().execute();
         viewNearBy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +134,8 @@ public class MatchForBuy extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Buy/findVeg";
+            String postUrl=constant.URL()+"/agri/v1/Buy/findVeg";
+            //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Buy/findVeg";
             //String postUrl = "https://agrinai.herokuapp.com/agri/v1/Buy/findVeg";
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -129,6 +144,7 @@ public class MatchForBuy extends AppCompatActivity {
             JSONObject json=new JSONObject();
             try {
                 json.put("VegName", match);
+                json.put("UserId",SendUserID);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -163,14 +179,18 @@ public class MatchForBuy extends AppCompatActivity {
                         if (code == 200) {
                             parentArray = json.getJSONArray("data");
                             progressDialog.dismiss();
+
                             for (int i = 0; i < parentArray.length(); i++) {
                                 JSONObject finalObject = parentArray.getJSONObject(i);
+                                Log.d("finalRes",finalObject.toString());
+                                sellerId=finalObject.getString("_id");
                                 product_name = finalObject.getString("VegName");
                                 Log.d("productname", product_name);
                                 kilo = finalObject.getString("VegKG");
                                 price = finalObject.getString("VegPrice");
                                 JSONObject useridd = finalObject.getJSONObject("UserId");
                                 JSONObject latlong=useridd.getJSONObject("location");
+                                sellerUserId=useridd.getString("_id");
                                 mlat=latlong.getString("lat");
                                 mlong=latlong.getString("long");
                                 username = useridd.getString("name");
@@ -180,6 +200,8 @@ public class MatchForBuy extends AppCompatActivity {
                                 productList.add(
                                     new BuyProduct(
                                         1,
+                                        sellerId,
+                                        sellerUserId,
                                         username,
                                         phno,
                                         product_name,
@@ -201,7 +223,7 @@ public class MatchForBuy extends AppCompatActivity {
                         } else {
                             progressDialog.dismiss();
                             notmatch.setText("Sorry No Matches Found");
-
+                            viewNearBy.setVisibility(View.INVISIBLE);
                         }
 
                     } catch (JSONException e) {

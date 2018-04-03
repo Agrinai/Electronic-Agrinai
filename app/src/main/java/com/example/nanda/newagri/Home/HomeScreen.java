@@ -2,14 +2,19 @@ package com.example.nanda.newagri.Home;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 
+import android.telephony.SmsManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,14 +24,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.nanda.newagri.Buy.BuyMatchMap;
+import com.example.nanda.newagri.Buy.BuyUserProfile;
 import com.example.nanda.newagri.BuyorSell.BuyorSell;
-import com.example.nanda.newagri.BuyorSell.Sell;
+import com.example.nanda.newagri.Constants;
+import com.example.nanda.newagri.MarketPrice;
 import com.example.nanda.newagri.R;
-import com.example.nanda.newagri.Sell.SellMatchMap;
+import com.example.nanda.newagri.TransactionHistory.BuySellTransaction;
 import com.example.nanda.newagri.User.UserScreen;
 import com.example.nanda.newagri.Zero;
 import com.squareup.picasso.Picasso;
@@ -51,6 +58,8 @@ public class HomeScreen extends AppCompatActivity
     CardView SellCard,MarketCard, TransactionCard,PaymentCard,MapCard;
     String UserName,UserPhone,Useremail,UserAddress,Userpropic;
     String useridd,useriddd,SendUserID,userName,nss;
+    Constants constant=new Constants();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +71,28 @@ public class HomeScreen extends AppCompatActivity
         MarketCard=(CardView)findViewById(R.id.Market_card);
         TransactionCard=(CardView)findViewById(R.id.Transaction_card);
         PaymentCard=(CardView)findViewById(R.id.MyPayment_card);
+
+        /*BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        //mTextMessage.setText("Home");
+                        *//*Intent i=new Intent(HomeScreen.this, HomeScreen.class);
+                        startActivity(i);*//*
+                        return true;
+                    case R.id.navigation_dashboard:
+                        //mTextMessage.setText("BuySell");
+                        Intent j=new Intent(HomeScreen.this, com.example.nanda.newagri.Agriculture.Menu.class);
+                        startActivity(j);
+                        return true;
+                }
+                return false;
+            }
+        });*/
+
         //MapCard=(CardView)findViewById(R.id.Map_card);
 
         //Get UserData From SharedPref//////////
@@ -143,19 +174,23 @@ public class HomeScreen extends AppCompatActivity
         MarketCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"Market Price Module is OnProcess",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getBaseContext(),"Market Price Module is OnProcess",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(HomeScreen.this,MarketPrice.class);
+                startActivity(i);
             }
         });
         TransactionCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"Transaction History Module is OnProcess",Toast.LENGTH_LONG).show();
+                Intent i=new Intent(HomeScreen.this,BuySellTransaction.class);
+                startActivity(i);
             }
         });
         PaymentCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(),"My Payment Module is OnProcess",Toast.LENGTH_LONG).show();
+                Intent j=new Intent(HomeScreen.this, com.example.nanda.newagri.Agriculture.Menu.class);
+                startActivity(j);
             }
         });
        /* MapCard.setOnClickListener(new View.OnClickListener() {
@@ -186,19 +221,16 @@ public class HomeScreen extends AppCompatActivity
             Picasso.with(this).load(picstring).into(navUserProfile);
 
         }
-        if(username.length() !=0){
-            navUserName.setText(""+username);
-        }
         if(username.toString().trim().length() !=0) {
             navUserName.setText(""+username);
         }
         else{
             if (userName.toString().trim().length() == 0) {
-                navUserName.setText(""+username);
+                navUserName.setText("" + nss);
 
             }
             if (nss.toString().trim().length() == 0) {
-                navUserName.setText(""+username);
+                navUserName.setText("" + userName);
             }
         }
 
@@ -225,7 +257,8 @@ public class HomeScreen extends AppCompatActivity
         });
     }
     void getProfilePost(String postBody) throws IOException {
-        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/getProfile";
+        String postUrl=constant.URL()+"/agri/v1/User/getProfile";
+        //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/getProfile";
         //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/getProfile";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -242,6 +275,19 @@ public class HomeScreen extends AppCompatActivity
             @Override
             public void onFailure(okhttp3.Call call, IOException e) {
                 call.cancel();
+                HomeScreen.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(HomeScreen.this);
+                        final EditText edittext = new EditText(HomeScreen.this);
+                        alert.setMessage("Check Your Internet Connection");
+                        alert.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        });
+                        alert.show();
+                    }
+                });
             }
 
             @Override
@@ -302,8 +348,24 @@ public class HomeScreen extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            finishAffinity();
-            System.exit(0);
+            AlertDialog.Builder alert = new AlertDialog.Builder(HomeScreen.this);
+            final EditText edittext = new EditText(HomeScreen.this);
+            alert.setTitle("Exit");
+            alert.setMessage("Do you want to close this app");
+
+            alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    finishAffinity();
+                    System.exit(0);
+                }
+            });
+            alert.setNegativeButton("no", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // what ever you want to do with No option.
+                }
+            });
+            alert.show();
+
         }
     }
 

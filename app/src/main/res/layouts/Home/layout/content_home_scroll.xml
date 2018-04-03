@@ -73,8 +73,8 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
+                        android:layout_width="@dimen/imgcardsize"
+                        android:layout_height="@dimen/imgcardsize"
                         android:background="@drawable/circlebuttonyello"
                         android:src="@drawable/ic_shopping_cart_24dp"
                         android:padding="10dp"/>
@@ -115,8 +115,8 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
+                        android:layout_width="@dimen/imgcardsize"
+                        android:layout_height="@dimen/imgcardsize"
                         android:background="@drawable/circlebuttonpurple"
                         android:src="@drawable/ic_insert_chart_24dp"
                         android:padding="10dp"/>
@@ -166,8 +166,8 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
+                        android:layout_width="@dimen/imgcardsize"
+                        android:layout_height="@dimen/imgcardsize"
                         android:background="@drawable/circlebuttongreen"
                         android:src="@drawable/ic_assignment_24dp"
                         android:padding="10dp"/>
@@ -185,7 +185,7 @@
                         />
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:gravity="center"
                         android:padding="5dp"
                         android:text="Know about your transaction"/>
@@ -208,16 +208,16 @@
                     android:orientation="vertical"
                     android:gravity="center">
                     <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
+                        android:layout_width="@dimen/imgcardsize"
+                        android:layout_height="@dimen/imgcardsize"
                         android:background="@drawable/circlebuttonpink"
-                        android:src="@drawable/ic_attach_money_24dp"
+                        android:src="@drawable/ic_leaf"
                         android:padding="10dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
-                        android:text="My Payment"
+                        android:text="Agriculture"
                         android:layout_marginTop="10dp"/>
                     <View
                         android:layout_width="match_parent"
@@ -227,10 +227,10 @@
                         />
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:gravity="center"
                         android:padding="5dp"
-                        android:text="To check Your Agrinai money balance "/>
+                        android:text="Start your cultivation"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -293,6 +293,8 @@
 
 
 </ScrollView>
+
+
 
 
 

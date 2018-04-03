@@ -2,6 +2,7 @@ package com.example.nanda.newagri.Sell;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -52,13 +53,13 @@ public class SellProductAdapter extends RecyclerView.Adapter<SellProductAdapter.
 
         //binding the data with the viewholder views
         holder.textViewTitle.setText("Name :"+product.getName());
-        holder.textViewMobileNumber.setText("Mobile Number :"+product.getMobilenumber());
+        //holder.textViewMobileNumber.setText("Mobile Number :"+product.getMobilenumber());
         holder.textViewProductName.setText("Name :"+product.getProductname());
         holder.textViewKilo.setText("Quantity :"+String.valueOf(product.getKilo())+" KG ");
         Picasso.with(mCtx).load(product.getImage()).into(holder.imageView);
        // holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage()));
 
-        holder.mapView.setOnClickListener(new View.OnClickListener() {
+        /*holder.mapView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String mlat=product.getLat();
@@ -75,6 +76,13 @@ public class SellProductAdapter extends RecyclerView.Adapter<SellProductAdapter.
                 Log.d("Long",mlong);
             }
         });
+        holder.callView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String contactStr=product.getMobilenumber();
+                mCtx.startActivity(new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel",contactStr,null)));
+            }
+        });*/
 
     }
 
@@ -89,17 +97,20 @@ public class SellProductAdapter extends RecyclerView.Adapter<SellProductAdapter.
 
         TextView textViewTitle, textViewProductName,textViewMobileNumber, textViewKilo;
         ImageView imageView;
-        Button mapView;
+        ImageView mapView,callView;
+
 
         public ProductViewHolder(View itemView) {
             super(itemView);
 
             textViewTitle = (TextView) itemView.findViewById(R.id.textViewName);
-            textViewMobileNumber = (TextView) itemView.findViewById(R.id.textViewMobileNumber);
+            //textViewMobileNumber = (TextView) itemView.findViewById(R.id.textViewMobileNumber);
             textViewProductName =(TextView) itemView.findViewById(R.id.textViewProductName);
             textViewKilo =(TextView) itemView.findViewById(R.id.textViewKilo);
             imageView = (ImageView)itemView.findViewById(R.id.imageView);
-            mapView=(Button)itemView.findViewById(R.id.mapView);
+           /* mapView = (ImageView)itemView.findViewById(R.id.mapView);
+            callView = (ImageView)itemView.findViewById(R.id.callView);*/
+            //mapView=(Button)itemView.findViewById(R.id.mapView);
 
         }
     }

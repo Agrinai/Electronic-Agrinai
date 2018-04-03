@@ -10,6 +10,7 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="homecard_width">160dp</dimen>
     <dimen name="homecard_height">190dp</dimen>
+    <dimen name="imgcardsize">55dp</dimen>
 
 
     <!--Dimens For HomeScreen-->
@@ -20,7 +21,7 @@
 
     <!--Dimens For UserEditScreen-->
     
-    <dimen name="pfofileimage">270dp</dimen>
+    <dimen name="pfofileimage">240dp</dimen>
     <dimen name="nameonproimage">230dp</dimen>
     <!--Dimens For UserEditScreen-->
 
@@ -54,6 +55,41 @@
     <!--Dimens For ButtonSize35-->
 
 
+    <!--Dimens For 10to100dp-->
+    <dimen name="margin10">10dp</dimen>
+    <dimen name="margin16">16dp</dimen>
+    <dimen name="margin18">18dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="margin25">25dp</dimen>
+    <dimen name="margin30">30dp</dimen>
+    <dimen name="margin35">35dp</dimen>
+    <dimen name="margin40">40dp</dimen>
+    <dimen name="margin50">50dp</dimen>
+    <dimen name="margin60">60dp</dimen>
+    <dimen name="margin70">70dp</dimen>
+    <dimen name="margin80">80dp</dimen>
+    <dimen name="margin90">90dp</dimen>
+    <dimen name="margin100">100dp</dimen>
+    <dimen name="margin110">110dp</dimen>
+    <dimen name="margin120">120dp</dimen>
+    <dimen name="margin130">130dp</dimen>
+    <dimen name="margin140">140dp</dimen>
+    <dimen name="margin150">150dp</dimen>
+    <dimen name="margin160">160dp</dimen>
+    <dimen name="margin170">170dp</dimen>
+    <dimen name="margin180">180dp</dimen>
+    <dimen name="margin190">190dp</dimen>
+    <dimen name="margin200">200dp</dimen>
 
-    
+    <dimen name="margin260">260dp</dimen>
+
+
+
+
+    <!--Dimens For MapForBUYSELL-->
+
+    <dimen name="card160">160dp</dimen>
+    <dimen name="card190">190dp</dimen>
+
+
 </resources>

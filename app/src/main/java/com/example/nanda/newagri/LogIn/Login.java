@@ -1,12 +1,16 @@
 package com.example.nanda.newagri.LogIn;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nanda.newagri.Constants;
+import com.example.nanda.newagri.GetPermission;
 import com.example.nanda.newagri.Home.HomeScreen;
 import com.example.nanda.newagri.R;
 
@@ -37,6 +43,9 @@ public class Login extends AppCompatActivity {
     EditText idname, idpassword;
     Button login,signup;
     String name, password,userName,userID,mLat,mLong;
+    private  static final  int MY_PERMISSIONS_REQUEST_READ_CONTACTS=0;
+    int check;
+    Constants constant=new Constants();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +140,8 @@ public class Login extends AppCompatActivity {
     }
 
     void postRequest(String postBody) throws IOException {
-        String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/logIn";
+        String postUrl=constant.URL()+"/agri/v1/User/logIn";
+        //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/User/logIn";
         //String postUrl = "https://agrinai.herokuapp.com/agri/v1/User/logIn";
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
@@ -177,7 +187,8 @@ public class Login extends AppCompatActivity {
                                         userName = obj.getString("name");
                                         userID = obj.getString("_id");
                                         JSONObject locationObject=obj.getJSONObject("location");
-                                        Log.d("locationObj",locationObject.toString());
+
+                                        //Log.d("locationObj",locationObject.toString());
                                         mLat = locationObject.getString("lat");
                                         mLong=locationObject.getString("long");
                                         Log.d("mLat",mLat);
@@ -211,17 +222,33 @@ public class Login extends AppCompatActivity {
                             SharedPreferences.Editor editor2 = ssp2.edit();
                             editor2.clear();
                             editor2.commit();
+                            progressDialog.dismiss();
+                            Log.d("JSONEXCEPTION E",e.toString());
+                            Toast.makeText(getApplication(),"Exception",Toast.LENGTH_LONG);
+                            NextPage();
 
-                            Intent i=new Intent(Login.this, SetUserLocation.class);
-                            i.putExtra("userId",userID);
-                            i.putExtra("userName", userName);
-                            i.putExtra("check","l");
-                            startActivity(i);
-                            Toast.makeText(getApplication(),"Set Your Location",Toast.LENGTH_LONG).show();
+
+
+
                         }
                     }
                 });
             }
         });
+    }
+    private void NextPage(){
+        if (ContextCompat.checkSelfPermission(Login.this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Intent i=new Intent(Login.this, GetPermission.class);
+            i.putExtra("userId",userID);
+            i.putExtra("userName", userName);
+            i.putExtra("check","l");
+            startActivity(i);
+        }else {
+            Intent i=new Intent(Login.this, SetUserLocation.class);
+            i.putExtra("userId",userID);
+            i.putExtra("userName", userName);
+            i.putExtra("check","l");
+            startActivity(i);
+        }
     }
 }

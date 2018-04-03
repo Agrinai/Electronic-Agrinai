@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.NamesList;
 import com.example.nanda.newagri.R;
 import com.example.nanda.newagri.Sell.dialogSell;
@@ -46,6 +47,7 @@ public class Sell extends Fragment {
     String useridd, useriddd, SendUserID;
     ProgressDialog progressDialog;
     String[] PN;
+    Constants constant=new Constants();
     public Sell() {
         // Required empty public constructor
     }
@@ -156,7 +158,7 @@ public class Sell extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), dialogSell.class);
-                i.putExtra("buyorsell", "Sell");
+                //i.putExtra("buyorsell", "Sell");
                 startActivity(i);
                 /*Dialog dialog=new Dialog(Sell.this);
 
@@ -187,7 +189,8 @@ public class Sell extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Sell/saveVeg";
+            String postUrl=constant.URL()+"/agri/v1/Sell/saveVeg";
+            //String postUrl="http://ec2-18-219-200-74.us-east-2.compute.amazonaws.com:8080/agri/v1/Sell/saveVeg";
            // String postUrl = "https://agrinai.herokuapp.com/agri/v1/Sell/saveVeg";
             MediaType JSON = MediaType.parse("application/json; charset=utf-8");
             JSONObject json=new JSONObject();

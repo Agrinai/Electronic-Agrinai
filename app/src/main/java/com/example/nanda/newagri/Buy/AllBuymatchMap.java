@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.nanda.newagri.Constants;
 import com.example.nanda.newagri.R;
 import com.example.nanda.newagri.Sell.SellMatchMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -37,7 +38,7 @@ public class AllBuymatchMap extends FragmentActivity implements GoogleMap.OnMyLo
     private GoogleMap mMap;
     String product_name, kilo, price, mlat, mlong, username, phno;
     private static final String TAG = SellMatchMap.class.getSimpleName();
-
+    Constants constant=new Constants();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
